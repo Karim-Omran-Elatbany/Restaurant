@@ -4,10 +4,10 @@ import tkinter.messagebox
 from tkinter import*
 yy=Tk()
 yy.title('Restaurant bot')
-#yy.iconbitmap('E:\\restaurant\\Images\\restaurant.ico') 
-#photo=PhotoImage(file='E:\\restaurant\\Images\\background.png')
-# panel=Label(yy, image=photo)
-# panel.pack()
+yy.iconbitmap('D:\AMR\python project\\New folder\\Restaurant\\Images\\restaurant.ico')
+photo=PhotoImage(file='D:\AMR\python project\\New folder\\Restaurant\\Images\\background.png')
+panel=Label(yy, image=photo)
+panel.pack()
 width=500
 height=450
 screenwidth = yy.winfo_screenwidth()

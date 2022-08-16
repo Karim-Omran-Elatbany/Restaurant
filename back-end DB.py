@@ -7,7 +7,7 @@ def CustomerData():
     cursor.execute("""  create table IF NOT EXISTS customer(
             custID INT PRIMARY KEY NOT NULL,
             name TEXT,
-            order TEXT,
+            task TEXT,
             price  INT 
             ) """)
     con.commit()
@@ -43,7 +43,7 @@ def access_path():
     con = sqlite3.connect('access.db')
     cursor = con.cursor()
     cursor.execute("""  create table IF NOT EXISTS access(
-            manager TEXT PRIMARY KEY NOT NULL,
+            manager TEXT PRIMARY KEY NOT NULL
             ) """)
     con.commit()
     con.close()

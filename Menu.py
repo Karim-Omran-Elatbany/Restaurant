@@ -3,6 +3,7 @@ from distutils.command.config import config
 from tkinter import*
 import math ,random,os
 from tkinter import messagebox
+import tkinter
 from tkinter.font import BOLD
 from tkinter.ttk import Treeview
 # center the main window according to screen
@@ -35,31 +36,25 @@ class Restaurant:
         Result.place(x=110,y=135)
         F2=Frame(root,bd=2, width=338,height=500,bg='white' )
         F2.place(x=962,y=205)
-        scroll=Scrollbar(F2,orient=VERTICAL)
-        self.textarea = Text(F2,yscrollcommand=scroll.set)   
-        scroll.pack(fill=Y,side='left') 
-        scroll.config(command=self.textarea.yview)
-        self.textarea.pack(fill=BOTH,expand=1)
-
-
         #------------Output from User----------
-        def welcome(self):
-            self.textarea.delete('1.0',END)
-            self.textarea.insert(END,'\t        Restaurant Bot  ')
-            self.textarea.insert(END,'\t =================================')
-            self.textarea.insert(END,f'\n\t B.NUM   :   ')
-            self.textarea.insert(END,f'\n\t Name    :  ')
-            self.textarea.insert(END,'\n=================================')
-            self.textarea.insert(END,f'\n Price\t       Number\t      Type\t')
-            self.textarea.insert(END,'\n=================================')
+        columns=['id','name','order','salary']
+        tree=Treeview(F2,columns=columns,show='headings',height=18)
+        scroll=Scrollbar(F2,orient=VERTICAL,command=tree.yview)
+        scroll.grid(row=0,column=1,sticky='ns')
+        tree.column('id',width=50,anchor='center')
+        tree.column('name',width=80,anchor='center')
+        tree.column('order',width=105,anchor='center')
+        tree.column('salary',width=80,anchor='center')
+        tree.heading('id',text='id')
+        tree.heading('name',text='name')
+        tree.heading('order',text='order')
+        tree.heading('salary',text='salary')
+        tree.grid(column=0,row=0)
 
         #------------BUttons------------------------------------------
         F3 =Frame(self.root,bd=2, width=958,height=100,bg='#0B4C5F' )
         F3.place(x=1,y=500)
 
-        Submit = Button(F3,text='Submit',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=15,height=2)
-        Submit.place(x=270,y=20)
-        
         Exit = Button(F3,text='Exit',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=15,height=2)
         Exit.place(x=600,y=20)
 
@@ -299,6 +294,7 @@ class Restaurant:
         c121.deselect()
         c131.deselect()
         c141.deselect()
+        
 
         #-----------------Cafe & Soda--------------------
         FF3 = Frame(root,bd=2,width=318,height=470,bg='#0B4C5F')
@@ -417,6 +413,201 @@ class Restaurant:
         l142.place(x=220, y=420)
         sp142 = Spinbox(FF3, from_=1, to=100, width='10')
         sp142.place(x=130, y=420)
+        #----------function to get data from user------------
+        def order():
+            user_order = []
+            if var1.get() == True:
+                user_order.append(sp1.get() + ' ' + c1['text']+'    ' + str(int(l1['text']) * int(sp1.get())) + ' EGP')
+            if var2.get() == True:
+                user_order.append(sp2.get() + ' ' + c2['text']+'    ' + str(int(l2['text']) * int(sp2.get())) + ' EGP')
+            if var3.get():
+                user_order.append(sp3.get() + ' ' + c3['text']+'    ' + str(int(l3['text']) * int(sp3.get())) + ' EGP')
+            if var4.get() == True:
+                user_order.append(sp4.get() + ' ' + c4['text']+'    ' + str(int(l4['text']) * int(sp4.get())) + ' EGP')
+            if var5.get() == True:
+                user_order.append(sp5.get() + ' ' + c5['text']+'    ' + str(int(l5['text']) * int(sp5.get())) + ' EGP')
+            if var6.get() == True:
+                user_order.append(sp6.get() + ' ' + c6['text']+'    ' + str(int(l6['text']) * int(sp6.get())) + ' EGP')
+            if var7.get() == True:
+                user_order.append(sp7.get() + ' ' + c7['text']+'    ' + str(int(l7['text']) * int(sp7.get())) + ' EGP')
+            if var8.get() == True:
+                user_order.append(sp8.get() + ' ' + c8['text']+'    ' + str(int(l8['text']) * int(sp8.get())) + ' EGP')
+            if var9.get() == True:
+                user_order.append(sp9.get() + ' ' + c9['text']+'    ' + str(int(l9['text']) * int(sp9.get())) + ' EGP')
+            if var10.get() == True:
+                user_order.append(sp10.get() + ' ' + c10['text']+'    ' + str(int(l10['text']) * int(sp10.get())) + ' EGP')
+            if var11.get() == True:
+                user_order.append(sp11.get() + ' ' + c11['text']+'    ' + str(int(l11['text']) * int(sp11.get())) + ' EGP')
+            if var12.get() == True:
+                user_order.append(sp12.get() + ' ' + c12['text']+'    ' + str(int(l12['text']) * int(sp12.get())) + ' EGP')
+            if var13.get() == True:
+                user_order.append(sp13.get() + ' ' + c13['text']+'    ' + str(int(l13['text']) * int(sp13.get())) + ' EGP')
+            if var14.get() == True:
+                user_order.append(sp14.get() + ' ' + c14['text']+'    ' + str(int(l14['text']) * int(sp14.get())) + ' EGP')  
+
+
+
+            if var15.get() == True:
+                user_order.append(sp11.get() + ' ' + c11['text']+'    ' + str(int(l11['text']) * int(sp11.get())) + ' EGP')
+            if var16.get() == True:
+                user_order.append(sp21.get() + ' ' + c21['text']+'    ' + str(int(l21['text']) * int(sp21.get())) + ' EGP')
+            if var17.get():
+                user_order.append(sp31.get() + ' ' + c31['text']+'    ' + str(int(l31['text']) * int(sp31.get())) + ' EGP')
+            if var18.get() == True:
+                user_order.append(sp41.get() + ' ' + c41['text']+'    ' + str(int(l41['text']) * int(sp41.get())) + ' EGP')
+            if var19.get() == True:
+                user_order.append(sp51.get() + ' ' + c51['text']+'    ' + str(int(l51['text']) * int(sp51.get())) + ' EGP')
+            if var20.get() == True:
+                user_order.append(sp61.get() + ' ' + c61['text']+'    ' + str(int(l61['text']) * int(sp61.get())) + ' EGP')
+            if var21.get() == True:
+                user_order.append(sp71.get() + ' ' + c71['text']+'    ' + str(int(l71['text']) * int(sp71.get())) + ' EGP')
+            if var22.get() == True:
+                user_order.append(sp81.get() + ' ' + c81['text']+'    ' + str(int(l81['text']) * int(sp81.get())) + ' EGP')
+            if var23.get() == True:
+                user_order.append(sp91.get() + ' ' + c91['text']+'    ' + str(int(l91['text']) * int(sp91.get())) + ' EGP')
+            if var24.get() == True:
+                user_order.append(sp101.get() + ' ' + c101['text']+'    ' + str(int(l101['text']) * int(sp101.get())) + ' EGP')
+            if var25.get() == True:
+                user_order.append(sp11.get() + ' ' + c111['text']+'    ' + str(int(l111['text']) * int(sp111.get())) + ' EGP')
+            if var26.get() == True:
+                user_order.append(sp121.get() + ' ' + c121['text']+'    ' + str(int(l121['text']) * int(sp121.get())) + ' EGP')
+            if var27.get() == True:
+                user_order.append(sp131.get() + ' ' + c131['text']+'    ' + str(int(l131['text']) * int(sp131.get())) + ' EGP')
+            if var28.get() == True:
+                user_order.append(sp141.get() + ' ' + c141['text']+'    ' + str(int(l141['text']) * int(sp141.get())) + ' EGP')
+                    
+            if var11.get() == True:
+                user_order.append(sp12.get() + ' ' + c12['text']+'    ' + str(int(l12['text']) * int(sp12.get())) + ' EGP')
+            if var21.get() == True:
+                user_order.append(sp22.get() + ' ' + c22['text']+'    ' + str(int(l22['text']) * int(sp22.get())) + ' EGP')
+            if var31.get():
+                user_order.append(sp32.get() + ' ' + c32['text']+'    ' + str(int(l32['text']) * int(sp32.get())) + ' EGP')
+            if var41.get() == True:
+                user_order.append(sp42.get() + ' ' + c42['text']+'    ' + str(int(l42['text']) * int(sp42.get())) + ' EGP')
+            if var51.get() == True:
+                user_order.append(sp52.get() + ' ' + c52['text']+'    ' + str(int(l52['text']) * int(sp52.get())) + ' EGP')
+            if var61.get() == True:
+                user_order.append(sp62.get() + ' ' + c62['text']+'    ' + str(int(l62['text']) * int(sp62.get())) + ' EGP')
+            if var71.get() == True:
+                user_order.append(sp72.get() + ' ' + c72['text']+'    ' + str(int(l72['text']) * int(sp72.get())) + ' EGP')
+            if var81.get() == True:
+                user_order.append(sp82.get() + ' ' + c82['text']+'    ' + str(int(l82['text']) * int(sp82.get())) + ' EGP')
+            if var91.get() == True:
+                user_order.append(sp92.get() + ' ' + c92['text']+'    ' + str(int(l92['text']) * int(sp92.get())) + ' EGP')
+            if var101.get() == True:
+                user_order.append(sp102.get() + ' ' + c102['text']+'    ' + str(int(l102['text']) * int(sp102.get())) + ' EGP')
+            if var111.get() == True:
+                user_order.append(sp112.get() + ' ' + c112['text']+'    ' + str(int(l112['text']) * int(sp112.get())) + ' EGP')
+            if var121.get() == True:
+                user_order.append(sp122.get() + ' ' + c122['text']+'    ' + str(int(l122['text']) * int(sp122.get())) + ' EGP')
+            if var131.get() == True:
+                user_order.append(sp132.get() + ' ' + c132['text']+'    ' + str(int(l132['text']) * int(sp132.get())) + ' EGP')
+            if var141.get() == True:
+                user_order.append(sp142.get() + ' ' + c142['text']+'    ' + str(int(l142['text']) * int(sp142.get())) + ' EGP')     
+        # test code
+            final_value = ('\n').join(user_order)
+
+            tkinter.messagebox.showinfo('order', final_value)
+            
+            # u just return final_value to get info
+        
+        def total_price():
+            tp = 0
+            if var1.get() == True:
+                tp += int(l1['text']) * int(sp1.get())
+            if var2.get() == True:
+                tp += int(l2['text']) * int(sp2.get())
+            if var3.get() == True:
+                tp += int(l3['text']) * int(sp3.get())
+            if var4.get() == True:
+                tp += int(l4['text']) * int(sp4.get())
+            if var5.get() == True:
+                tp += int(l5['text']) * int(sp5.get())
+            if var6.get() == True:
+                tp += int(l6['text']) * int(sp6.get())
+            if var7.get() == True:
+                tp += int(l7['text']) * int(sp7.get())
+            if var8.get() == True:
+                tp += int(l8['text']) * int(sp8.get())
+            if var9.get() == True:
+                tp += int(l9['text']) * int(sp9.get())
+            if var10.get() == True:
+                tp += int(l10['text']) * int(sp10.get())
+            if var11.get() == True:
+                tp += int(l11['text']) * int(sp11.get())
+            if var12.get() == True:
+                tp += int(l12['text']) * int(sp12.get())
+            if var13.get() == True:
+                tp += int(l13['text']) * int(sp13.get())
+            if var14.get() == True:
+                tp += int(l14['text']) * int(sp14.get())
+
+            if var15.get() == True:
+                tp += int(l11['text']) * int(sp11.get())
+            if var16.get() == True:
+                tp += int(l21['text']) * int(sp21.get())
+            if var17.get() == True:
+                tp += int(l31['text']) * int(sp31.get())
+            if var18.get() == True:
+                tp += int(l41['text']) * int(sp41.get())
+            if var19.get() == True:
+                tp += int(l51['text']) * int(sp51.get())
+            if var20.get() == True:
+                tp += int(l61['text']) * int(sp61.get())
+            if var21.get() == True:
+                tp += int(l71['text']) * int(sp71.get())
+            if var22.get() == True:
+                tp += int(l81['text']) * int(sp81.get())
+            if var23.get() == True:
+                tp += int(l91['text']) * int(sp91.get())
+            if var24.get() == True:
+                tp += int(l101['text']) * int(sp101.get())
+            if var25.get() == True:
+                tp += int(l111['text']) * int(sp111.get())
+            if var26.get() == True:
+                tp += int(l121['text']) * int(sp121.get())
+            if var27.get() == True:
+                tp += int(l131['text']) * int(sp131.get())
+            if var28.get() == True:
+                tp += int(l141['text']) * int(sp141.get())
+
+
+            if var11.get() == True:
+                tp += int(l12['text']) * int(sp12.get())
+            if var21.get() == True:
+                tp += int(l22['text']) * int(sp22.get())
+            if var31.get() == True:
+                tp += int(l32['text']) * int(sp32.get())
+            if var41.get() == True:
+                tp += int(l42['text']) * int(sp42.get())
+            if var51.get() == True:
+                tp += int(l52['text']) * int(sp52.get())
+            if var61.get() == True:
+                tp += int(l62['text']) * int(sp62.get())
+            if var71.get() == True:
+                tp += int(l72['text']) * int(sp72.get())
+            if var81.get() == True:
+                tp += int(l82['text']) * int(sp82.get())
+            if var91.get() == True:
+                tp += int(l92['text']) * int(sp92.get())
+            if var101.get() == True:
+                tp += int(l102['text']) * int(sp102.get())
+            if var111.get() == True:
+                tp += int(l112['text']) * int(sp112.get())
+            if var121.get() == True:
+                tp += int(l122['text']) * int(sp122.get())
+            if var131.get() == True:
+                tp += int(l132['text']) * int(sp132.get())
+            if var141.get() == True:
+                tp += int(l142['text']) * int(sp142.get())
+                # test code
+                tkinter.messagebox.showinfo('Total price', tp)
+        Submit = Button(F3,text='Submit',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=15,height=2,command=order)
+        Submit.place(x=270,y=20)
+
+
+
+
 root = Tk()
 ob = Restaurant(root)   
 root.mainloop()

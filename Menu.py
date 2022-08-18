@@ -13,7 +13,7 @@ class Restaurant:
         self.root.geometry("1300x600+30+10")
         self.root.title('Restaurant Bot')
         self.root.resizable(False,False)
-        self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
+        #self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
         title = Label(root,text='Restaurant Menu',fg='white',bg='#0B2F3A',font=('tomato',15))
         title.pack(fill=X)
         F1=Frame(self.root,bd=2, width=338,height=170,bg='#0B4C5F' )

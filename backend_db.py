@@ -8,17 +8,25 @@ def CustomerData():
             custID INT PRIMARY KEY NOT NULL,
             name TEXT,
             task TEXT,
-            price  INT 
+            price INT 
             ) """)
     con.commit()
     con.close()
 
 
-def addCustomer(custID, name, order, price):
+def selectcustomer(custID):
+    con = sqlite3.connect('customer.db')
+    cursor = con.cursor()
+    data = cursor.execute('SELECT * FROM customer WHERE custID=?', (custID,))
+    con.commit()
+    return data
+
+
+def addCustomer(custID, name, task, price):
     con = sqlite3.connect('customer.db')
     cursor = con.cursor()
     cursor.execute('insert into customer values (?,?,?,?)',
-                   (custID, name, order, price))
+                   (custID, name, task, price))
     con.commit()
     con.close()
 
@@ -63,3 +71,4 @@ def showAllManagers():
     data = cursor.execute('select * from access')
     con.commit()
     return data
+    

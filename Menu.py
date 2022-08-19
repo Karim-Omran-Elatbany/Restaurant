@@ -770,7 +770,7 @@ class Restaurant:
             # for i in user_order:
             #     backEnd_DB.addCustomer('1', 'karim', i, total_price())
                 # ------------------------------------------------------------------------
-            tree.insert('', END, values=('1', 'Karim', user_order[0], total_price()))
+            tree.insert('', END, values=('1', Ent_name.get(), user_order[0], total_price()))
             for i in range(1, len(user_order)):
                 tree.insert('', END, values=('', '', user_order[i], ''))
 

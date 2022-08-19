@@ -58,7 +58,8 @@ class Restaurant:
         F3 = Frame(self.root, bd=2, width=753, height=100, bg='#0B4C5F')
         F3.place(x=1, y=500)
 
-        Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2)
+
+        Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,command=root.destroy)
         Exit.place(x=450, y=20)
 
         # ------------------------IceCream--------------------------------

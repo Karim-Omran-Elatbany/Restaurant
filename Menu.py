@@ -12,35 +12,41 @@ class Restaurant:
         # self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
         title = Label(root, text='Restaurant Menu', fg='white', bg='#0B2F3A', font=('tomato', 15))
         title.pack(fill=X)
-        F1 = Frame(self.root, bd=2, width=338, height=170, bg='#0B4C5F')
-        F1.place(x=961, y=30)
+        F1 = Frame(self.root, bd=2, width=547, height=100, bg='#0B4C5F')
+        F1.place(x=755, y=500)
         t = Label(F1, text='Search For Customer', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
-        t.place(x=75, y=0)
+        t.place(x=200, y=0)
 
         # ----------------------Search-----------------
         his_name = Label(F1, text='Username', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
-        his_name.place(x=0, y=75)
+        his_name.place(x=10, y=30)
 
         Ent_name = Entry(F1)
-        Ent_name.place(x=80, y=77)
+        Ent_name.place(x=90, y=33)
 
-        btn_Customer = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,
-                              height=3)
-        btn_Customer.place(x=230, y=60)
+        his_id = Label(F1, text='ID', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
+        his_id.place(x=10, y=60)
+
+        Ent_id = Entry(F1)
+        Ent_id.place(x=90, y=63)
+
+        btn_Customer = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,height=2)
+        btn_Customer.place(x=430, y=30)
 
         # ---------F1--------------
         F1 = Label(F1, text='Restaurant Bot', font=('tomato', 13, BOLD), bg='#0B4C5F', fg='gold')
         F1.place(x=110, y=135)
-        F2 = Frame(root, bd=2, width=338, height=500, bg='white')
-        F2.place(x=962, y=205)
         # ------------Output from User----------
+        F2 = Frame(root, bd=2, width=400, height=400, bg='white')
+        F2.place(x=760, y=30)
         columns = ['id', 'name', 'order', 'total price']
-        tree = Treeview(F2, columns=columns, show='headings', height=18)
+        tree = Treeview(F2, columns=columns, show='headings', height=22)
         scroll = Scrollbar(F2, orient=VERTICAL, command=tree.yview)
+        tree.configure(yscroll=scroll.set)
         scroll.grid(row=0, column=1, sticky='ns')
         tree.column('id', width=50, anchor='center')
-        tree.column('name', width=80, anchor='center')
-        tree.column('order', width=105, anchor='center')
+        tree.column('name', width=88, anchor='center')
+        tree.column('order', width=300, anchor='center')
         tree.column('total price', width=80, anchor='center')
         tree.heading('id', text='id')
         tree.heading('name', text='name')
@@ -49,17 +55,17 @@ class Restaurant:
         tree.grid(column=0, row=0)
 
         # ------------BUttons------------------------------------------
-        F3 = Frame(self.root, bd=2, width=958, height=100, bg='#0B4C5F')
+        F3 = Frame(self.root, bd=2, width=753, height=100, bg='#0B4C5F')
         F3.place(x=1, y=500)
 
         Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2)
-        Exit.place(x=600, y=20)
+        Exit.place(x=450, y=20)
 
         # ------------------------IceCream--------------------------------
-        FF1 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
+        FF1 = Frame(root, bd=2, width=250, height=470, bg='#0B4C5F')
         FF1.place(x=1, y=30)
         t = Label(FF1, text='IceCream', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
-        t.place(x=120, y=0)
+        t.place(x=90, y=0)
         var1_for_icecream = BooleanVar()
         var2_for_icecream = BooleanVar()
         var3_for_icecream = BooleanVar()
@@ -188,10 +194,10 @@ class Restaurant:
         ice_cream14.deselect()
 
         # ---------------Food----------------
-        FF2 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
-        FF2.place(x=321, y=30)
+        FF2 = Frame(root, bd=2, width=250, height=470, bg='#0B4C5F')
+        FF2.place(x=252, y=30)
         t = Label(FF2, text='Food', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
-        t.place(x=120, y=0)
+        t.place(x=90, y=0)
         var1_for_food = BooleanVar()
         var2_for_food = BooleanVar()
         var3_for_food = BooleanVar()
@@ -321,10 +327,10 @@ class Restaurant:
         food14.deselect()
 
         # -----------------Coffee & Soda--------------------
-        FF3 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
-        FF3.place(x=641, y=30)
+        FF3 = Frame(root, bd=2, width=250, height=470, bg='#0B4C5F')
+        FF3.place(x=504, y=30)
         t = Label(FF3, text='Cafe & Soda', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
-        t.place(x=120, y=0)
+        t.place(x=90, y=0)
 
         var1_for_drinks = BooleanVar()
         var2_for_drinks = BooleanVar()
@@ -770,7 +776,7 @@ class Restaurant:
             # for i in user_order:
             #     backEnd_DB.addCustomer('1', 'karim', i, total_price())
                 # ------------------------------------------------------------------------
-            tree.insert('', END, values=('1', Ent_name.get(), user_order[0], total_price()))
+            tree.insert('', END, values=('1', 'Karim', user_order[0], total_price()))
             for i in range(1, len(user_order)):
                 tree.insert('', END, values=('', '', user_order[i], ''))
 
@@ -778,7 +784,7 @@ class Restaurant:
 
         submit = Button(F3, text='Submit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,
                         command=order)
-        submit.place(x=270, y=20)
+        submit.place(x=150, y=20)
 
 
 root = Tk()

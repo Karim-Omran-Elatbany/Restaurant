@@ -1,613 +1,786 @@
-from distutils.cmd import Command
-from distutils.command.config import config
-from tkinter import*
-import math ,random,os
-from tkinter import messagebox
-import tkinter
+from tkinter import *
 from tkinter.font import BOLD
 from tkinter.ttk import Treeview
+
 # center the main window according to screen
 class Restaurant:
-    def __init__(self,root):
+    def __init__(self, root):
         self.root = root
         self.root.geometry("1300x600+30+10")
         self.root.title('Restaurant Bot')
-        self.root.resizable(False,False)
-        #self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
-        title = Label(root,text='Restaurant Menu',fg='white',bg='#0B2F3A',font=('tomato',15))
+        self.root.resizable(False, False)
+        # self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
+        title = Label(root, text='Restaurant Menu', fg='white', bg='#0B2F3A', font=('tomato', 15))
         title.pack(fill=X)
-        F1=Frame(self.root,bd=2, width=338,height=170,bg='#0B4C5F' )
-        F1.place(x=961,y=30)
-        t = Label(F1,text='Search For Customer',font=('tomato',15,BOLD),bg='#0B4C5F',fg='gold')
-        t.place(x=75,y=0)
+        F1 = Frame(self.root, bd=2, width=338, height=170, bg='#0B4C5F')
+        F1.place(x=961, y=30)
+        t = Label(F1, text='Search For Customer', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
+        t.place(x=75, y=0)
 
-        #----------------------Search-----------------
-        his_name =Label( F1 , text='Username',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white')
-        his_name.place(x=0,y=75)
+        # ----------------------Search-----------------
+        his_name = Label(F1, text='Username', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
+        his_name.place(x=0, y=75)
 
-        Ent_name=Entry(F1)
-        Ent_name.place(x=80,y=77)
+        Ent_name = Entry(F1)
+        Ent_name.place(x=80, y=77)
 
-        btn_Customer = Button(F1,text='Search',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=10,height=3)
-        btn_Customer.place(x=230,y=60)
+        btn_Customer = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,
+                              height=3)
+        btn_Customer.place(x=230, y=60)
 
-        #---------Result--------------
-        Result=Label(F1,text='Restaurant Bot',font=('tomato',13,BOLD),bg='#0B4C5F',fg='gold')
-        Result.place(x=110,y=135)
-        F2=Frame(root,bd=2, width=338,height=500,bg='white' )
-        F2.place(x=962,y=205)
-        #------------Output from User----------
-        columns=['id','name','order','salary']
-        tree=Treeview(F2,columns=columns,show='headings',height=18)
-        scroll=Scrollbar(F2,orient=VERTICAL,command=tree.yview)
-        scroll.grid(row=0,column=1,sticky='ns')
-        tree.column('id',width=50,anchor='center')
-        tree.column('name',width=80,anchor='center')
-        tree.column('order',width=105,anchor='center')
-        tree.column('salary',width=80,anchor='center')
-        tree.heading('id',text='id')
-        tree.heading('name',text='name')
-        tree.heading('order',text='order')
-        tree.heading('salary',text='salary')
-        tree.grid(column=0,row=0)
+        # ---------F1--------------
+        F1 = Label(F1, text='Restaurant Bot', font=('tomato', 13, BOLD), bg='#0B4C5F', fg='gold')
+        F1.place(x=110, y=135)
+        F2 = Frame(root, bd=2, width=338, height=500, bg='white')
+        F2.place(x=962, y=205)
+        # ------------Output from User----------
+        columns = ['id', 'name', 'order', 'total price']
+        tree = Treeview(F2, columns=columns, show='headings', height=18)
+        scroll = Scrollbar(F2, orient=VERTICAL, command=tree.yview)
+        scroll.grid(row=0, column=1, sticky='ns')
+        tree.column('id', width=50, anchor='center')
+        tree.column('name', width=80, anchor='center')
+        tree.column('order', width=105, anchor='center')
+        tree.column('total price', width=80, anchor='center')
+        tree.heading('id', text='id')
+        tree.heading('name', text='name')
+        tree.heading('order', text='order')
+        tree.heading('total price', text='total price')
+        tree.grid(column=0, row=0)
 
-        #------------BUttons------------------------------------------
-        F3 =Frame(self.root,bd=2, width=958,height=100,bg='#0B4C5F' )
-        F3.place(x=1,y=500)
+        # ------------BUttons------------------------------------------
+        F3 = Frame(self.root, bd=2, width=958, height=100, bg='#0B4C5F')
+        F3.place(x=1, y=500)
 
-        Exit = Button(F3,text='Exit',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=15,height=2)
-        Exit.place(x=600,y=20)
+        Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2)
+        Exit.place(x=600, y=20)
 
+        # ------------------------IceCream--------------------------------
+        FF1 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
+        FF1.place(x=1, y=30)
+        t = Label(FF1, text='IceCream', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
+        t.place(x=120, y=0)
+        var1_for_icecream = BooleanVar()
+        var2_for_icecream = BooleanVar()
+        var3_for_icecream = BooleanVar()
+        var4_for_icecream = BooleanVar()
+        var5_for_icecream = BooleanVar()
+        var6_for_icecream = BooleanVar()
+        var7_for_icecream = BooleanVar()
+        var8_for_icecream = BooleanVar()
+        var9_for_icecream = BooleanVar()
+        var10_for_icecream = BooleanVar()
+        var11_for_icecream = BooleanVar()
+        var12_for_icecream = BooleanVar()
+        var13_for_icecream = BooleanVar()
+        var14_for_icecream = BooleanVar()
+        ice_cream1 = Checkbutton(FF1, text='Gummy Bears', variable=var1_for_icecream)
+        ice_cream1.place(x=10, y=30)
+        price_for_icecream1 = Label(FF1, text='20 ')
+        price_for_icecream1.place(x=220, y=30)
+        number_of_icecream1 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream1.place(x=130, y=30)
 
-        #------------------------IceCream--------------------------------
-        FF1 = Frame(root,bd=2,width=318,height=470,bg='#0B4C5F')
-        FF1.place(x=1,y=30)
-        t = Label(FF1,text='IceCream',font=('tomato',15,BOLD),bg='#0B4C5F',fg='gold')
-        t.place(x=120,y=0)
-        var1 = BooleanVar()
-        var2 = BooleanVar()
-        var3 = BooleanVar()
-        var4 = BooleanVar()
-        var5 = BooleanVar()
-        var6 = BooleanVar()
-        var7 = BooleanVar()
-        var8 = BooleanVar()
-        var9 = BooleanVar()
-        var10 = BooleanVar()
-        var11 = BooleanVar()
-        var12 = BooleanVar()
-        var13 = BooleanVar()
-        var14 = BooleanVar()
-        c1=Checkbutton(FF1, text='Gummy Bears',variable=var1)
-        c1.place(x=10,y=30)
-        l1=Label(FF1,text='20 ')
-        l1.place(x=220,y=30)
-        sp1=Spinbox(FF1,from_=1,to=100,width='10')
-        sp1.place(x=130,y=30)
-        c2=Checkbutton(FF1, text='Mint Chip',variable=var2)
-        c2.place(x=10,y=60)
-        l2=Label(FF1,text='20 ')
-        l2.place(x=220,y=60)
-        sp2=Spinbox(FF1,from_=1,to=100,width='10')
-        sp2.place(x=130,y=60)
-        c3=Checkbutton(FF1, text='Salted Caramel',variable=var3)
-        c3.place(x=10,y=90)
-        l3=Label(FF1,text='20 ')
-        l3.place(x=220,y=90)
-        sp3=Spinbox(FF1,from_=1,to=100,width='10')
-        sp3.place(x=130,y=90)
-        c4=Checkbutton(FF1, text='Chocolate ',variable=var4)
-        c4.place(x=10,y=120)
-        l4=Label(FF1,text='20 ')
-        l4.place(x=220,y=120)
-        sp4=Spinbox(FF1,from_=1,to=100,width='10')
-        sp4.place(x=130,y=120)
-        c5=Checkbutton(FF1, text='Vanilla Bean',variable=var5)
-        c5.place(x=10,y=150)
-        l5=Label(FF1,text='20 ')
-        l5.place(x=220,y=150)
-        sp5=Spinbox(FF1,from_=1,to=100,width='10')
-        sp5.place(x=130,y=150)
-        c6=Checkbutton(FF1, text='Coffee Oreo ',variable=var6)
-        c6.place(x=10,y=180)
-        l6=Label(FF1,text='20 ')
-        l6.place(x=220,y=180)
-        sp6=Spinbox(FF1,from_=1,to=100,width='10')
-        sp6.place(x=130,y=180)
-        c7=Checkbutton(FF1, text='Reeses Pieces',variable=var7)
-        c7.place(x=10,y=210)
-        l7=Label(FF1,text='20 ')
-        l7.place(x=220,y=210)
-        sp7=Spinbox(FF1,from_=1,to=100,width='10')
-        sp7.place(x=130,y=210)
-        c8=Checkbutton(FF1, text='Peanut Butter',variable=var8)
-        c8.place(x=10,y=240)
-        l8=Label(FF1,text='20 ')
-        l8.place(x=220,y=240)
-        sp8=Spinbox(FF1,from_=1,to=100,width='10')
-        sp8.place(x=130,y=240)
-        c9=Checkbutton(FF1, text='Strawberry',variable=var9)
-        c9.place(x=10,y=270)
-        l9=Label(FF1,text='20 ')
-        l9.place(x=220,y=270)
-        sp9=Spinbox(FF1,from_=1,to=100,width='10')
-        sp9.place(x=130,y=270)
-        c10=Checkbutton(FF1, text='Ocean Water',variable=var10)
-        c10.place(x=10,y=300)
-        l10=Label(FF1,text='20 ')
-        l10.place(x=220,y=300)
-        sp10=Spinbox(FF1,from_=1,to=100,width='10')
-        sp10.place(x=130,y=300)
-        c11=Checkbutton(FF1, text='Passionfruit',variable=var11)
-        c11.place(x=10,y=330)
-        l11=Label(FF1,text='20 ')
-        l11.place(x=220,y=330)
-        sp11=Spinbox(FF1,from_=1,to=100,width='10')
-        sp11.place(x=130,y=330)
-        c12=Checkbutton(FF1, text='Oreos',variable=var12)
-        c12.place(x=10,y=360)
-        l12=Label(FF1,text='20 ')
-        l12.place(x=220,y=360)
-        sp12=Spinbox(FF1,from_=1,to=100,width='10')
-        sp12.place(x=130,y=360)
-        c13=Checkbutton(FF1, text='Sprinkles ',variable=var13)
-        c13.place(x=10,y=390)
-        l13=Label(FF1,text='20 ')
-        l13.place(x=220,y=390)
-        sp13=Spinbox(FF1,from_=1,to=100,width='10')
-        sp13.place(x=130,y=390)
-        c14=Checkbutton(FF1, text='Sea Salt',variable=var14)
-        c14.place(x=10,y=420)
-        l14=Label(FF1,text='20 ')
-        l14.place(x=220,y=420)
-        sp14=Spinbox(FF1,from_=1,to=100,width='10')
-        sp14.place(x=130,y=420)
-        c1.deselect()
-        c2.deselect()
-        c3.deselect()
-        c4.deselect()
-        c5.deselect()
-        c6.deselect()
-        c7.deselect()
-        c8.deselect()
-        c9.deselect()
-        c10.deselect()
-        c11.deselect()
-        c12.deselect()
-        c13.deselect()
-        c14.deselect()
+        ice_cream2 = Checkbutton(FF1, text='Mint Chip', variable=var2_for_icecream)
+        ice_cream2.place(x=10, y=60)
+        price_for_icecream2 = Label(FF1, text='20 ')
+        price_for_icecream2.place(x=220, y=60)
+        number_of_icecream2 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream2.place(x=130, y=60)
 
-        #---------------Food----------------
-        FF2 = Frame(root,bd=2,width=318,height=470,bg='#0B4C5F')
-        FF2.place(x=321,y=30)
-        t = Label(FF2,text='Food',font=('tomato',15,BOLD),bg='#0B4C5F',fg='gold')
-        t.place(x=120,y=0)
-        var15 = BooleanVar()
-        var16 = BooleanVar()
-        var17 = BooleanVar()
-        var18 = BooleanVar()
-        var19 = BooleanVar()
-        var20 = BooleanVar()
-        var21 = BooleanVar()
-        var22 = BooleanVar()
-        var23 = BooleanVar()
-        var24 = BooleanVar()
-        var25 = BooleanVar()
-        var26 = BooleanVar()
-        var27 = BooleanVar()
-        var28 = BooleanVar()
-        c11=Checkbutton(FF2, text='Toast',variable=var15)
-        c11.place(x=10,y=30)
-        l11=Label(FF2,text='20 ')
-        l11.place(x=220,y=30)
-        sp11=Spinbox(FF2,from_=1,to=100,width='10')
-        sp11.place(x=130,y=30)
-        c21=Checkbutton(FF2, text='Red Sauce Pizza',variable=var16)
-        c21.place(x=10,y=60)
-        l21=Label(FF2,text='20 ')
-        l21.place(x=220,y=60)
-        sp21=Spinbox(FF2,from_=1,to=100,width='10')
-        sp21.place(x=130,y=60)
-        c31=Checkbutton(FF2, text='Baps',variable=var17)
-        c31.place(x=10,y=90)
-        l31=Label(FF2,text='20 ')
-        l31.place(x=220,y=90)
-        sp31=Spinbox(FF2,from_=1,to=100,width='10')
-        sp31.place(x=130,y=90)
-        c41=Checkbutton(FF2, text='Croissants',variable=var18)
-        c41.place(x=10,y=120)
-        l41=Label(FF2,text='20 ')
-        l41.place(x=220,y=120)
-        sp41=Spinbox(FF2,from_=1,to=100,width='10')
-        sp41.place(x=130,y=120)
-        c51=Checkbutton(FF2, text='Assorted Wraps',variable=var19)
-        c51.place(x=10,y=150)
-        l51=Label(FF2,text='20 ')
-        l51.place(x=220,y=150)
-        sp51=Spinbox(FF2,from_=1,to=100,width='10')
-        sp51.place(x=130,y=150)
-        c61=Checkbutton(FF2, text='Assorted Paninis',variable=var20)
-        c61.place(x=10,y=180)
-        l61=Label(FF2,text='20 ')
-        l61.place(x=220,y=180)
-        sp61=Spinbox(FF2,from_=1,to=100,width='10')
-        sp61.place(x=130,y=180)
-        c71=Checkbutton(FF2, text='Chicken Toasties',variable=var21)
-        c71.place(x=10,y=210)
-        l71=Label(FF2,text='20 ')
-        l71.place(x=220,y=210)
-        sp71=Spinbox(FF2,from_=1,to=100,width='10')
-        sp71.place(x=130,y=210)
-        c81=Checkbutton(FF2, text='Assorted Quiches',variable=var22)
-        c81.place(x=10,y=240)
-        l81=Label(FF2,text='20 ')
-        l81.place(x=220,y=240)
-        sp81=Spinbox(FF2,from_=1,to=100,width='10')
-        sp81.place(x=130,y=240)
-        c91=Checkbutton(FF2, text='Assorted Salads',variable=var23)
-        c91.place(x=10,y=270)
-        l91=Label(FF2,text='20 ')
-        l91.place(x=220,y=270)
-        sp91=Spinbox(FF2,from_=1,to=100,width='10')
-        sp91.place(x=130,y=270)
-        c101=Checkbutton(FF2, text='Greek Pizza',variable=var24)
-        c101.place(x=10,y=300)
-        l101=Label(FF2,text='20 ')
-        l101.place(x=220,y=300)
-        sp101=Spinbox(FF2,from_=1,to=100,width='10')
-        sp101.place(x=130,y=300)
-        c111=Checkbutton(FF2, text='SUPER MELTS',variable=var25)
-        c111.place(x=10,y=330)
-        l111=Label(FF2,text='20 ')
-        l111.place(x=220,y=330)
-        sp111=Spinbox(FF2,from_=1,to=100,width='10')
-        sp111.place(x=130,y=330)
-        c121=Checkbutton(FF2, text='Grilled Shrimp',variable=var26)
-        c121.place(x=10,y=360)
-        l121=Label(FF2,text='20 ')
-        l121.place(x=220,y=360)
-        sp121=Spinbox(FF2,from_=1,to=100,width='10')
-        sp121.place(x=130,y=360)
-        c131=Checkbutton(FF2, text='Greek Salad',variable=var27)
-        c131.place(x=10,y=390)
-        l131=Label(FF2,text='20 ')
-        l131.place(x=220,y=390)
-        sp131=Spinbox(FF2,from_=1,to=100,width='10')
-        sp131.place(x=130,y=390)
-        c141=Checkbutton(FF2, text='Fish Sandwich',variable=var28)
-        c141.place(x=10,y=420)
-        l141=Label(FF2,text='20 ')
-        l141.place(x=220,y=420)
-        sp141=Spinbox(FF2,from_=1,to=100,width='10')
-        sp141.place(x=130,y=420)
-        c11.deselect()
-        c21.deselect()
-        c31.deselect()
-        c41.deselect()
-        c51.deselect()
-        c61.deselect()
-        c71.deselect()
-        c81.deselect()
-        c91.deselect()
-        c101.deselect()
-        c111.deselect()
-        c121.deselect()
-        c131.deselect()
-        c141.deselect()
-        
+        ice_cream3 = Checkbutton(FF1, text='Salted Caramel', variable=var3_for_icecream)
+        ice_cream3.place(x=10, y=90)
+        price_for_icecream3 = Label(FF1, text='20 ')
+        price_for_icecream3.place(x=220, y=90)
+        number_of_icecream3 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream3.place(x=130, y=90)
 
-        #-----------------Cafe & Soda--------------------
-        FF3 = Frame(root,bd=2,width=318,height=470,bg='#0B4C5F')
-        FF3.place(x=641,y=30)
-        t = Label(FF3,text='Cafe & Soda',font=('tomato',15,BOLD),bg='#0B4C5F',fg='gold')
-        t.place(x=120,y=0)
-        var11 = BooleanVar()
-        var21 = BooleanVar()
-        var31 = BooleanVar()
-        var41 = BooleanVar()
-        var51 = BooleanVar()
-        var61 = BooleanVar()
-        var71 = BooleanVar()
-        var81 = BooleanVar()
-        var91 = BooleanVar()
-        var101 = BooleanVar()
-        var111 = BooleanVar()
-        var121 = BooleanVar()
-        var131 = BooleanVar()
-        var141 = BooleanVar()
-        c12 = Checkbutton(FF3, text='Cappuccino', variable=var11)
-        c12.deselect()
-        c12.place(x=10, y=30)
-        l12 = Label(FF3, text='20 ')
-        l12.place(x=220, y=30)
-        sp12 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp12.place(x=130, y=30)
-        c22 = Checkbutton(FF3, text='Short Machinator', variable=var21)
-        c22.deselect()
-        c22.place(x=10, y=60)
-        l22 = Label(FF3, text='20 ')
-        l22.place(x=220, y=60)
-        sp22 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp22.place(x=130, y=60)
-        c32 = Checkbutton(FF3, text='Long Machinator', variable=var31)
-        c32.deselect()
-        c32.place(x=10, y=90)
-        l32 = Label(FF3, text='20 ')
-        l32.place(x=220, y=90)
-        sp32 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp32.place(x=130, y=90)
-        c42 = Checkbutton(FF3, text='Affogato', variable=var41)
-        c42.deselect()
-        c42.place(x=10, y=120)
-        l42 = Label(FF3, text='20 ')
-        l42.place(x=220, y=120)
-        sp42 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp42.place(x=130, y=120)
-        c52 = Checkbutton(FF3, text='Piccolo Latte', variable=var51)
-        c52.deselect()
-        c52.place(x=10, y=150)
-        l52 = Label(FF3, text='20 ')
-        l52.place(x=220, y=150)
-        sp52 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp52.place(x=130, y=150)
-        c62 = Checkbutton(FF3, text='Flavoured Latte', variable=var61)
-        c62.deselect()
-        c62.place(x=10, y=180)
-        l62 = Label(FF3, text='20 ')
-        l62.place(x=220, y=180)
-        sp62 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp62.place(x=130, y=180)
-        c72 = Checkbutton(FF3, text='Glace', variable=var71)
-        c72.deselect()
-        c72.place(x=10, y=210)
-        l72 = Label(FF3, text='20 ')
-        l72.place(x=220, y=210)
-        sp72 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp72.place(x=130, y=210)
-        c82 = Checkbutton(FF3, text='Latte', variable=var81)
-        c82.deselect()
-        c82.place(x=10, y=240)
-        l82 = Label(FF3, text='20 ')
-        l82.place(x=220, y=240)
-        sp82 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp82.place(x=130, y=240)
-        c92 = Checkbutton(FF3, text='Mocha', variable=var91)
-        c92.deselect()
-        c92.place(x=10, y=270)
-        l92 = Label(FF3, text='20 ')
-        l92.place(x=220, y=270)
-        sp92 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp92.place(x=130, y=270)
-        c102 = Checkbutton(FF3, text='Milk', variable=var101)
-        c102.deselect()
-        c102.place(x=10, y=300)
-        l102 = Label(FF3, text='20 ')
-        l102.place(x=220, y=300)
-        sp102 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp102.place(x=130, y=300)
-        c112 = Checkbutton(FF3, text='maple', variable=var111)
-        c112.deselect()
-        c112.place(x=10, y=330)
-        l112 = Label(FF3, text='20 ')
-        l112.place(x=220, y=330)
-        sp112 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp112.place(x=130, y=330)
-        c122 = Checkbutton(FF3, text='Spices', variable=var121)
-        c122.deselect()
-        c122.place(x=10, y=360)
-        l122 = Label(FF3, text='20 ')
-        l122.place(x=220, y=360)
-        sp122 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp122.place(x=130, y=360)
-        c132 = Checkbutton(FF3, text='Coca powder', variable=var131)
-        c132.deselect()
-        c132.place(x=10, y=390)
-        l132 = Label(FF3, text='20 ')
-        l132.place(x=220, y=390)
-        sp132 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp132.place(x=130, y=390)
-        c142 = Checkbutton(FF3, text='Vanilla', variable=var141)
-        c142.deselect()
-        c142.place(x=10, y=420)
-        l142 = Label(FF3, text='20 ')
-        l142.place(x=220, y=420)
-        sp142 = Spinbox(FF3, from_=1, to=100, width='10')
-        sp142.place(x=130, y=420)
-        #----------function to get data from user------------
-        def order():
-            user_order = []
-            if var1.get() == True:
-                user_order.append(sp1.get() + ' ' + c1['text']+'    ' + str(int(l1['text']) * int(sp1.get())) + ' EGP')
-            if var2.get() == True:
-                user_order.append(sp2.get() + ' ' + c2['text']+'    ' + str(int(l2['text']) * int(sp2.get())) + ' EGP')
-            if var3.get():
-                user_order.append(sp3.get() + ' ' + c3['text']+'    ' + str(int(l3['text']) * int(sp3.get())) + ' EGP')
-            if var4.get() == True:
-                user_order.append(sp4.get() + ' ' + c4['text']+'    ' + str(int(l4['text']) * int(sp4.get())) + ' EGP')
-            if var5.get() == True:
-                user_order.append(sp5.get() + ' ' + c5['text']+'    ' + str(int(l5['text']) * int(sp5.get())) + ' EGP')
-            if var6.get() == True:
-                user_order.append(sp6.get() + ' ' + c6['text']+'    ' + str(int(l6['text']) * int(sp6.get())) + ' EGP')
-            if var7.get() == True:
-                user_order.append(sp7.get() + ' ' + c7['text']+'    ' + str(int(l7['text']) * int(sp7.get())) + ' EGP')
-            if var8.get() == True:
-                user_order.append(sp8.get() + ' ' + c8['text']+'    ' + str(int(l8['text']) * int(sp8.get())) + ' EGP')
-            if var9.get() == True:
-                user_order.append(sp9.get() + ' ' + c9['text']+'    ' + str(int(l9['text']) * int(sp9.get())) + ' EGP')
-            if var10.get() == True:
-                user_order.append(sp10.get() + ' ' + c10['text']+'    ' + str(int(l10['text']) * int(sp10.get())) + ' EGP')
-            if var11.get() == True:
-                user_order.append(sp11.get() + ' ' + c11['text']+'    ' + str(int(l11['text']) * int(sp11.get())) + ' EGP')
-            if var12.get() == True:
-                user_order.append(sp12.get() + ' ' + c12['text']+'    ' + str(int(l12['text']) * int(sp12.get())) + ' EGP')
-            if var13.get() == True:
-                user_order.append(sp13.get() + ' ' + c13['text']+'    ' + str(int(l13['text']) * int(sp13.get())) + ' EGP')
-            if var14.get() == True:
-                user_order.append(sp14.get() + ' ' + c14['text']+'    ' + str(int(l14['text']) * int(sp14.get())) + ' EGP')  
+        ice_cream4 = Checkbutton(FF1, text='Chocolate ', variable=var4_for_icecream)
+        ice_cream4.place(x=10, y=120)
+        price_for_icecream4 = Label(FF1, text='20 ')
+        price_for_icecream4.place(x=220, y=120)
+        number_of_icecream4 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream4.place(x=130, y=120)
 
+        ice_cream5 = Checkbutton(FF1, text='Vanilla Bean', variable=var5_for_icecream)
+        ice_cream5.place(x=10, y=150)
+        price_for_icecream5 = Label(FF1, text='20 ')
+        price_for_icecream5.place(x=220, y=150)
+        number_of_icecream5 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream5.place(x=130, y=150)
 
+        ice_cream6 = Checkbutton(FF1, text='Coffee Oreo ', variable=var6_for_icecream)
+        ice_cream6.place(x=10, y=180)
+        price_for_icecream6 = Label(FF1, text='20 ')
+        price_for_icecream6.place(x=220, y=180)
+        number_of_icecream6 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream6.place(x=130, y=180)
 
-            if var15.get() == True:
-                user_order.append(sp11.get() + ' ' + c11['text']+'    ' + str(int(l11['text']) * int(sp11.get())) + ' EGP')
-            if var16.get() == True:
-                user_order.append(sp21.get() + ' ' + c21['text']+'    ' + str(int(l21['text']) * int(sp21.get())) + ' EGP')
-            if var17.get():
-                user_order.append(sp31.get() + ' ' + c31['text']+'    ' + str(int(l31['text']) * int(sp31.get())) + ' EGP')
-            if var18.get() == True:
-                user_order.append(sp41.get() + ' ' + c41['text']+'    ' + str(int(l41['text']) * int(sp41.get())) + ' EGP')
-            if var19.get() == True:
-                user_order.append(sp51.get() + ' ' + c51['text']+'    ' + str(int(l51['text']) * int(sp51.get())) + ' EGP')
-            if var20.get() == True:
-                user_order.append(sp61.get() + ' ' + c61['text']+'    ' + str(int(l61['text']) * int(sp61.get())) + ' EGP')
-            if var21.get() == True:
-                user_order.append(sp71.get() + ' ' + c71['text']+'    ' + str(int(l71['text']) * int(sp71.get())) + ' EGP')
-            if var22.get() == True:
-                user_order.append(sp81.get() + ' ' + c81['text']+'    ' + str(int(l81['text']) * int(sp81.get())) + ' EGP')
-            if var23.get() == True:
-                user_order.append(sp91.get() + ' ' + c91['text']+'    ' + str(int(l91['text']) * int(sp91.get())) + ' EGP')
-            if var24.get() == True:
-                user_order.append(sp101.get() + ' ' + c101['text']+'    ' + str(int(l101['text']) * int(sp101.get())) + ' EGP')
-            if var25.get() == True:
-                user_order.append(sp11.get() + ' ' + c111['text']+'    ' + str(int(l111['text']) * int(sp111.get())) + ' EGP')
-            if var26.get() == True:
-                user_order.append(sp121.get() + ' ' + c121['text']+'    ' + str(int(l121['text']) * int(sp121.get())) + ' EGP')
-            if var27.get() == True:
-                user_order.append(sp131.get() + ' ' + c131['text']+'    ' + str(int(l131['text']) * int(sp131.get())) + ' EGP')
-            if var28.get() == True:
-                user_order.append(sp141.get() + ' ' + c141['text']+'    ' + str(int(l141['text']) * int(sp141.get())) + ' EGP')
-                    
-            if var11.get() == True:
-                user_order.append(sp12.get() + ' ' + c12['text']+'    ' + str(int(l12['text']) * int(sp12.get())) + ' EGP')
-            if var21.get() == True:
-                user_order.append(sp22.get() + ' ' + c22['text']+'    ' + str(int(l22['text']) * int(sp22.get())) + ' EGP')
-            if var31.get():
-                user_order.append(sp32.get() + ' ' + c32['text']+'    ' + str(int(l32['text']) * int(sp32.get())) + ' EGP')
-            if var41.get() == True:
-                user_order.append(sp42.get() + ' ' + c42['text']+'    ' + str(int(l42['text']) * int(sp42.get())) + ' EGP')
-            if var51.get() == True:
-                user_order.append(sp52.get() + ' ' + c52['text']+'    ' + str(int(l52['text']) * int(sp52.get())) + ' EGP')
-            if var61.get() == True:
-                user_order.append(sp62.get() + ' ' + c62['text']+'    ' + str(int(l62['text']) * int(sp62.get())) + ' EGP')
-            if var71.get() == True:
-                user_order.append(sp72.get() + ' ' + c72['text']+'    ' + str(int(l72['text']) * int(sp72.get())) + ' EGP')
-            if var81.get() == True:
-                user_order.append(sp82.get() + ' ' + c82['text']+'    ' + str(int(l82['text']) * int(sp82.get())) + ' EGP')
-            if var91.get() == True:
-                user_order.append(sp92.get() + ' ' + c92['text']+'    ' + str(int(l92['text']) * int(sp92.get())) + ' EGP')
-            if var101.get() == True:
-                user_order.append(sp102.get() + ' ' + c102['text']+'    ' + str(int(l102['text']) * int(sp102.get())) + ' EGP')
-            if var111.get() == True:
-                user_order.append(sp112.get() + ' ' + c112['text']+'    ' + str(int(l112['text']) * int(sp112.get())) + ' EGP')
-            if var121.get() == True:
-                user_order.append(sp122.get() + ' ' + c122['text']+'    ' + str(int(l122['text']) * int(sp122.get())) + ' EGP')
-            if var131.get() == True:
-                user_order.append(sp132.get() + ' ' + c132['text']+'    ' + str(int(l132['text']) * int(sp132.get())) + ' EGP')
-            if var141.get() == True:
-                user_order.append(sp142.get() + ' ' + c142['text']+'    ' + str(int(l142['text']) * int(sp142.get())) + ' EGP')     
-        # test code
-            final_value = ('\n').join(user_order)
+        ice_cream7 = Checkbutton(FF1, text='Reeses Pieces', variable=var7_for_icecream)
+        ice_cream7.place(x=10, y=210)
+        price_for_icecream7 = Label(FF1, text='20 ')
+        price_for_icecream7.place(x=220, y=210)
+        number_of_icecream7 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream7.place(x=130, y=210)
 
-            tkinter.messagebox.showinfo('order', final_value)
-            
-            # u just return final_value to get info
-        
+        ice_cream8 = Checkbutton(FF1, text='Peanut Butter', variable=var8_for_icecream)
+        ice_cream8.place(x=10, y=240)
+        price_for_icecream8 = Label(FF1, text='20 ')
+        price_for_icecream8.place(x=220, y=240)
+        number_of_icecream8 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream8.place(x=130, y=240)
+
+        ice_cream9 = Checkbutton(FF1, text='Strawberry', variable=var9_for_icecream)
+        ice_cream9.place(x=10, y=270)
+        price_for_icecream9 = Label(FF1, text='20 ')
+        price_for_icecream9.place(x=220, y=270)
+        number_of_icecream9 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream9.place(x=130, y=270)
+
+        ice_cream10 = Checkbutton(FF1, text='Ocean Water', variable=var10_for_icecream)
+        ice_cream10.place(x=10, y=300)
+        price_for_icecream10 = Label(FF1, text='20 ')
+        price_for_icecream10.place(x=220, y=300)
+        number_of_icecream10 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream10.place(x=130, y=300)
+
+        ice_cream11 = Checkbutton(FF1, text='Passionfruit', variable=var11_for_icecream)
+        ice_cream11.place(x=10, y=330)
+        price_for_icecream11 = Label(FF1, text='20 ')
+        price_for_icecream11.place(x=220, y=330)
+        number_of_icecream11 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream11.place(x=130, y=330)
+
+        ice_cream12 = Checkbutton(FF1, text='Oreos', variable=var12_for_icecream)
+        ice_cream12.place(x=10, y=360)
+        price_for_icecream12 = Label(FF1, text='20 ')
+        price_for_icecream12.place(x=220, y=360)
+        number_of_icecream12 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream12.place(x=130, y=360)
+
+        ice_cream13 = Checkbutton(FF1, text='Sprinkles ', variable=var13_for_icecream)
+        ice_cream13.place(x=10, y=390)
+        price_for_icecream13 = Label(FF1, text='20 ')
+        price_for_icecream13.place(x=220, y=390)
+        number_of_icecream13 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream13.place(x=130, y=390)
+
+        ice_cream14 = Checkbutton(FF1, text='Sea Salt', variable=var14_for_icecream)
+        ice_cream14.place(x=10, y=420)
+        price_for_icecream14 = Label(FF1, text='20 ')
+        price_for_icecream14.place(x=220, y=420)
+        number_of_icecream14 = Spinbox(FF1, from_=1, to=100, width=10)
+        number_of_icecream14.place(x=130, y=420)
+
+        ice_cream1.deselect()
+        ice_cream2.deselect()
+        ice_cream3.deselect()
+        ice_cream4.deselect()
+        ice_cream5.deselect()
+        ice_cream6.deselect()
+        ice_cream7.deselect()
+        ice_cream8.deselect()
+        ice_cream9.deselect()
+        ice_cream10.deselect()
+        ice_cream11.deselect()
+        ice_cream12.deselect()
+        ice_cream13.deselect()
+        ice_cream14.deselect()
+
+        # ---------------Food----------------
+        FF2 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
+        FF2.place(x=321, y=30)
+        t = Label(FF2, text='Food', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
+        t.place(x=120, y=0)
+        var1_for_food = BooleanVar()
+        var2_for_food = BooleanVar()
+        var3_for_food = BooleanVar()
+        var4_for_food = BooleanVar()
+        var5_for_food = BooleanVar()
+        var6_for_food = BooleanVar()
+        var7_for_food = BooleanVar()
+        var8_for_food = BooleanVar()
+        var9_for_food = BooleanVar()
+        var10_for_food = BooleanVar()
+        var11_for_food = BooleanVar()
+        var12_for_food = BooleanVar()
+        var13_for_food = BooleanVar()
+        var14_for_food = BooleanVar()
+
+        food1 = Checkbutton(FF2, text='Toast', variable=var1_for_food)
+        food1.place(x=10, y=30)
+        price_for_food1 = Label(FF2, text='20 ')
+        price_for_food1.place(x=220, y=30)
+        number_of_food1 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food1.place(x=130, y=30)
+
+        food2 = Checkbutton(FF2, text='Red Sauce Pizza', variable=var2_for_food)
+        food2.place(x=10, y=60)
+        price_for_food2 = Label(FF2, text='20 ')
+        price_for_food2.place(x=220, y=60)
+        number_of_food2 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food2.place(x=130, y=60)
+
+        food3 = Checkbutton(FF2, text='Baps', variable=var3_for_food)
+        food3.place(x=10, y=90)
+        price_for_food3 = Label(FF2, text='20 ')
+        price_for_food3.place(x=220, y=90)
+        number_of_food3 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food3.place(x=130, y=90)
+
+        food4 = Checkbutton(FF2, text='Croissants', variable=var4_for_food)
+        food4.place(x=10, y=120)
+        price_for_food4 = Label(FF2, text='20 ')
+        price_for_food4.place(x=220, y=120)
+        number_of_food4 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food4.place(x=130, y=120)
+
+        food5 = Checkbutton(FF2, text='Assorted Wraps', variable=var5_for_food)
+        food5.place(x=10, y=150)
+        price_for_food5 = Label(FF2, text='20 ')
+        price_for_food5.place(x=220, y=150)
+        number_of_food5 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food5.place(x=130, y=150)
+
+        food6 = Checkbutton(FF2, text='Assorted Paninis', variable=var6_for_food)
+        food6.place(x=10, y=180)
+        price_for_food6 = Label(FF2, text='20 ')
+        price_for_food6.place(x=220, y=180)
+        number_of_food6 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food6.place(x=130, y=180)
+
+        food7 = Checkbutton(FF2, text='Chicken Toasties', variable=var7_for_food)
+        food7.place(x=10, y=210)
+        price_for_food7 = Label(FF2, text='20 ')
+        price_for_food7.place(x=220, y=210)
+        number_of_food7 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food7.place(x=130, y=210)
+
+        food8 = Checkbutton(FF2, text='Assorted Quiches', variable=var8_for_food)
+        food8.place(x=10, y=240)
+        price_for_food8 = Label(FF2, text='20 ')
+        price_for_food8.place(x=220, y=240)
+        number_of_food8 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food8.place(x=130, y=240)
+
+        food9 = Checkbutton(FF2, text='Assorted Salads', variable=var9_for_food)
+        food9.place(x=10, y=270)
+        price_for_food9 = Label(FF2, text='20 ')
+        price_for_food9.place(x=220, y=270)
+        number_of_food9 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food9.place(x=130, y=270)
+
+        food10 = Checkbutton(FF2, text='Greek Pizza', variable=var10_for_food)
+        food10.place(x=10, y=300)
+        price_for_food10 = Label(FF2, text='20 ')
+        price_for_food10.place(x=220, y=300)
+        number_of_food10 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food10.place(x=130, y=300)
+
+        food11 = Checkbutton(FF2, text='SUPER MELTS', variable=var11_for_food)
+        food11.place(x=10, y=330)
+        price_for_food11 = Label(FF2, text='20 ')
+        price_for_food11.place(x=220, y=330)
+        number_of_food11 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food11.place(x=130, y=330)
+
+        food12 = Checkbutton(FF2, text='Grilled Shrimp', variable=var12_for_food)
+        food12.place(x=10, y=360)
+        price_for_food12 = Label(FF2, text='20 ')
+        price_for_food12.place(x=220, y=360)
+        number_of_food12 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food12.place(x=130, y=360)
+
+        food13 = Checkbutton(FF2, text='Greek Salad', variable=var13_for_food)
+        food13.place(x=10, y=390)
+        price_for_food13 = Label(FF2, text='20 ')
+        price_for_food13.place(x=220, y=390)
+        number_of_food13 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food13.place(x=130, y=390)
+
+        food14 = Checkbutton(FF2, text='Fish Sandwich', variable=var14_for_food)
+        food14.place(x=10, y=420)
+        price_for_food14 = Label(FF2, text='20 ')
+        price_for_food14.place(x=220, y=420)
+        number_of_food14 = Spinbox(FF2, from_=1, to=100, width=10)
+        number_of_food14.place(x=130, y=420)
+
+        food1.deselect()
+        food2.deselect()
+        food3.deselect()
+        food4.deselect()
+        food5.deselect()
+        food6.deselect()
+        food7.deselect()
+        food8.deselect()
+        food9.deselect()
+        food10.deselect()
+        food11.deselect()
+        food12.deselect()
+        food13.deselect()
+        food14.deselect()
+
+        # -----------------Coffee & Soda--------------------
+        FF3 = Frame(root, bd=2, width=318, height=470, bg='#0B4C5F')
+        FF3.place(x=641, y=30)
+        t = Label(FF3, text='Cafe & Soda', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
+        t.place(x=120, y=0)
+
+        var1_for_drinks = BooleanVar()
+        var2_for_drinks = BooleanVar()
+        var3_for_drinks = BooleanVar()
+        var4_for_drinks = BooleanVar()
+        var5_for_drinks = BooleanVar()
+        var6_for_drinks = BooleanVar()
+        var7_for_drinks = BooleanVar()
+        var8_for_drinks = BooleanVar()
+        var9_for_drinks = BooleanVar()
+        var10_for_drinks = BooleanVar()
+        var11_for_drinks = BooleanVar()
+        var12_for_drinks = BooleanVar()
+        var13_for_drinks = BooleanVar()
+        var14_for_drinks = BooleanVar()
+
+        drink1 = Checkbutton(FF3, text='Cappuccino', variable=var1_for_drinks)
+        drink1.place(x=10, y=30)
+        price_for_drink1 = Label(FF3, text='20 ')
+        price_for_drink1.place(x=220, y=30)
+        number_of_drink1 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink1.place(x=130, y=30)
+
+        drink2 = Checkbutton(FF3, text='Short Machinator', variable=var2_for_drinks)
+        drink2.place(x=10, y=60)
+        price_for_drink2 = Label(FF3, text='20 ')
+        price_for_drink2.place(x=220, y=60)
+        number_of_drink2 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink2.place(x=130, y=60)
+
+        drink3 = Checkbutton(FF3, text='Long Machinator', variable=var3_for_drinks)
+        drink3.place(x=10, y=90)
+        price_for_drink3 = Label(FF3, text='20 ')
+        price_for_drink3.place(x=220, y=90)
+        number_of_drink3 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink3.place(x=130, y=90)
+
+        drink4 = Checkbutton(FF3, text='Affogato', variable=var4_for_drinks)
+        drink4.place(x=10, y=120)
+        price_for_drink4 = Label(FF3, text='20 ')
+        price_for_drink4.place(x=220, y=120)
+        number_of_drink4 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink4.place(x=130, y=120)
+
+        drink5 = Checkbutton(FF3, text='Piccolo Latte', variable=var5_for_drinks)
+        drink5.place(x=10, y=150)
+        price_for_drink5 = Label(FF3, text='20 ')
+        price_for_drink5.place(x=220, y=150)
+        number_of_drink5 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink5.place(x=130, y=150)
+
+        drink6 = Checkbutton(FF3, text='Flavoured Latte', variable=var6_for_drinks)
+        drink6.place(x=10, y=180)
+        price_for_drink6 = Label(FF3, text='20 ')
+        price_for_drink6.place(x=220, y=180)
+        number_of_drink6 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink6.place(x=130, y=180)
+
+        drink7 = Checkbutton(FF3, text='Glace', variable=var7_for_drinks)
+        drink7.place(x=10, y=210)
+        price_for_drink7 = Label(FF3, text='20 ')
+        price_for_drink7.place(x=220, y=210)
+        number_of_drink7 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink7.place(x=130, y=210)
+
+        drink8 = Checkbutton(FF3, text='Latte', variable=var8_for_drinks)
+        drink8.place(x=10, y=240)
+        price_for_drink8 = Label(FF3, text='20 ')
+        price_for_drink8.place(x=220, y=240)
+        number_of_drink8 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink8.place(x=130, y=240)
+
+        drink9 = Checkbutton(FF3, text='Mocha', variable=var9_for_drinks)
+        drink9.place(x=10, y=270)
+        price_for_drink9 = Label(FF3, text='20 ')
+        price_for_drink9.place(x=220, y=270)
+        number_of_drink9 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink9.place(x=130, y=270)
+
+        drink10 = Checkbutton(FF3, text='Milk', variable=var10_for_drinks)
+        drink10.place(x=10, y=300)
+        price_for_drink10 = Label(FF3, text='20 ')
+        price_for_drink10.place(x=220, y=300)
+        number_of_drink10 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink10.place(x=130, y=300)
+
+        drink11 = Checkbutton(FF3, text='maple', variable=var11_for_drinks)
+        drink11.place(x=10, y=330)
+        price_for_drink11 = Label(FF3, text='20 ')
+        price_for_drink11.place(x=220, y=330)
+        number_of_drink11 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink11.place(x=130, y=330)
+
+        drink12 = Checkbutton(FF3, text='Spices', variable=var12_for_drinks)
+        drink12.place(x=10, y=360)
+        price_for_drink12 = Label(FF3, text='20 ')
+        price_for_drink12.place(x=220, y=360)
+        number_of_drink12 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink12.place(x=130, y=360)
+
+        drink13 = Checkbutton(FF3, text='Coca powder', variable=var13_for_drinks)
+        drink13.place(x=10, y=390)
+        price_for_drink13 = Label(FF3, text='20 ')
+        price_for_drink13.place(x=220, y=390)
+        number_of_drink13 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink13.place(x=130, y=390)
+
+        drink14 = Checkbutton(FF3, text='Vanilla', variable=var14_for_drinks)
+        drink14.place(x=10, y=420)
+        price_for_drink14 = Label(FF3, text='20 ')
+        price_for_drink14.place(x=220, y=420)
+        number_of_drink14 = Spinbox(FF3, from_=1, to=100, width=10)
+        number_of_drink14.place(x=130, y=420)
+
+        drink1.deselect()
+        drink2.deselect()
+        drink3.deselect()
+        drink4.deselect()
+        drink5.deselect()
+        drink6.deselect()
+        drink7.deselect()
+        drink8.deselect()
+        drink9.deselect()
+        drink10.deselect()
+        drink11.deselect()
+        drink12.deselect()
+        drink13.deselect()
+        drink14.deselect()
+
+        # backEnd_DB.CustomerData()
+        # backEnd_DB.access_path()
+
+        # ----------function to get data from user------------
+
         def total_price():
             tp = 0
-            if var1.get() == True:
-                tp += int(l1['text']) * int(sp1.get())
-            if var2.get() == True:
-                tp += int(l2['text']) * int(sp2.get())
-            if var3.get() == True:
-                tp += int(l3['text']) * int(sp3.get())
-            if var4.get() == True:
-                tp += int(l4['text']) * int(sp4.get())
-            if var5.get() == True:
-                tp += int(l5['text']) * int(sp5.get())
-            if var6.get() == True:
-                tp += int(l6['text']) * int(sp6.get())
-            if var7.get() == True:
-                tp += int(l7['text']) * int(sp7.get())
-            if var8.get() == True:
-                tp += int(l8['text']) * int(sp8.get())
-            if var9.get() == True:
-                tp += int(l9['text']) * int(sp9.get())
-            if var10.get() == True:
-                tp += int(l10['text']) * int(sp10.get())
-            if var11.get() == True:
-                tp += int(l11['text']) * int(sp11.get())
-            if var12.get() == True:
-                tp += int(l12['text']) * int(sp12.get())
-            if var13.get() == True:
-                tp += int(l13['text']) * int(sp13.get())
-            if var14.get() == True:
-                tp += int(l14['text']) * int(sp14.get())
+            if var1_for_icecream.get():
+                tp += int(price_for_icecream1['text']) * int(number_of_icecream1.get())
+            if var2_for_icecream.get():
+                tp += int(price_for_icecream2['text']) * int(number_of_icecream2.get())
+            if var3_for_icecream.get():
+                tp += int(price_for_icecream3['text']) * int(number_of_icecream3.get())
+            if var4_for_icecream.get():
+                tp += int(price_for_icecream4['text']) * int(number_of_icecream4.get())
+            if var5_for_icecream.get():
+                tp += int(price_for_icecream5['text']) * int(number_of_icecream5.get())
+            if var6_for_icecream.get():
+                tp += int(price_for_icecream6['text']) * int(number_of_icecream6.get())
+            if var7_for_icecream.get():
+                tp += int(price_for_icecream7['text']) * int(number_of_icecream7.get())
+            if var8_for_icecream.get():
+                tp += int(price_for_icecream8['text']) * int(number_of_icecream8.get())
+            if var9_for_icecream.get():
+                tp += int(price_for_icecream9['text']) * int(number_of_icecream9.get())
+            if var10_for_icecream.get():
+                tp += int(price_for_icecream10['text']) * int(number_of_icecream10.get())
+            if var1_for_icecream.get():
+                tp += int(price_for_icecream11['text']) * int(number_of_icecream11.get())
+            if var12_for_icecream.get():
+                tp += int(price_for_icecream12['text']) * int(number_of_icecream12.get())
+            if var13_for_icecream.get():
+                tp += int(price_for_icecream13['text']) * int(number_of_icecream13.get())
+            if var14_for_icecream.get():
+                tp += int(price_for_icecream14['text']) * int(number_of_icecream14.get())
 
-            if var15.get() == True:
-                tp += int(l11['text']) * int(sp11.get())
-            if var16.get() == True:
-                tp += int(l21['text']) * int(sp21.get())
-            if var17.get() == True:
-                tp += int(l31['text']) * int(sp31.get())
-            if var18.get() == True:
-                tp += int(l41['text']) * int(sp41.get())
-            if var19.get() == True:
-                tp += int(l51['text']) * int(sp51.get())
-            if var20.get() == True:
-                tp += int(l61['text']) * int(sp61.get())
-            if var21.get() == True:
-                tp += int(l71['text']) * int(sp71.get())
-            if var22.get() == True:
-                tp += int(l81['text']) * int(sp81.get())
-            if var23.get() == True:
-                tp += int(l91['text']) * int(sp91.get())
-            if var24.get() == True:
-                tp += int(l101['text']) * int(sp101.get())
-            if var25.get() == True:
-                tp += int(l111['text']) * int(sp111.get())
-            if var26.get() == True:
-                tp += int(l121['text']) * int(sp121.get())
-            if var27.get() == True:
-                tp += int(l131['text']) * int(sp131.get())
-            if var28.get() == True:
-                tp += int(l141['text']) * int(sp141.get())
+            if var1_for_food.get():
+                tp += int(price_for_food1['text']) * int(number_of_food1.get())
+            if var2_for_food.get():
+                tp += int(price_for_food2['text']) * int(number_of_food2.get())
+            if var3_for_food.get():
+                tp += int(price_for_food3['text']) * int(number_of_food3.get())
+            if var4_for_food.get():
+                tp += int(price_for_food4['text']) * int(number_of_food4.get())
+            if var5_for_food.get():
+                tp += int(price_for_food5['text']) * int(number_of_food5.get())
+            if var6_for_food.get():
+                tp += int(price_for_food6['text']) * int(number_of_food6.get())
+            if var7_for_food.get():
+                tp += int(price_for_food7['text']) * int(number_of_food7.get())
+            if var8_for_food.get():
+                tp += int(price_for_food8['text']) * int(number_of_food8.get())
+            if var9_for_food.get():
+                tp += int(price_for_food9['text']) * int(number_of_food9.get())
+            if var10_for_food.get():
+                tp += int(price_for_food10['text']) * int(number_of_food10.get())
+            if var11_for_food.get():
+                tp += int(price_for_food11['text']) * int(number_of_food11.get())
+            if var12_for_food.get():
+                tp += int(price_for_food12['text']) * int(number_of_food12.get())
+            if var13_for_food.get():
+                tp += int(price_for_food13['text']) * int(number_of_food13.get())
+            if var14_for_food.get():
+                tp += int(price_for_food14['text']) * int(number_of_food14.get())
 
-
-            if var11.get() == True:
-                tp += int(l12['text']) * int(sp12.get())
-            if var21.get() == True:
-                tp += int(l22['text']) * int(sp22.get())
-            if var31.get() == True:
-                tp += int(l32['text']) * int(sp32.get())
-            if var41.get() == True:
-                tp += int(l42['text']) * int(sp42.get())
-            if var51.get() == True:
-                tp += int(l52['text']) * int(sp52.get())
-            if var61.get() == True:
-                tp += int(l62['text']) * int(sp62.get())
-            if var71.get() == True:
-                tp += int(l72['text']) * int(sp72.get())
-            if var81.get() == True:
-                tp += int(l82['text']) * int(sp82.get())
-            if var91.get() == True:
-                tp += int(l92['text']) * int(sp92.get())
-            if var101.get() == True:
-                tp += int(l102['text']) * int(sp102.get())
-            if var111.get() == True:
-                tp += int(l112['text']) * int(sp112.get())
-            if var121.get() == True:
-                tp += int(l122['text']) * int(sp122.get())
-            if var131.get() == True:
-                tp += int(l132['text']) * int(sp132.get())
-            if var141.get() == True:
-                tp += int(l142['text']) * int(sp142.get())
+            if var1_for_drinks.get():
+                tp += int(price_for_drink1['text']) * int(number_of_drink1.get())
+            if var2_for_drinks.get():
+                tp += int(price_for_drink2['text']) * int(number_of_drink2.get())
+            if var3_for_drinks.get():
+                tp += int(price_for_drink3['text']) * int(number_of_drink3.get())
+            if var4_for_drinks.get():
+                tp += int(price_for_drink4['text']) * int(number_of_drink4.get())
+            if var5_for_drinks.get():
+                tp += int(price_for_drink5['text']) * int(number_of_drink5.get())
+            if var6_for_drinks.get():
+                tp += int(price_for_drink6['text']) * int(number_of_drink6.get())
+            if var7_for_drinks.get():
+                tp += int(price_for_drink7['text']) * int(number_of_drink7.get())
+            if var8_for_drinks.get():
+                tp += int(price_for_drink8['text']) * int(number_of_drink8.get())
+            if var9_for_drinks.get():
+                tp += int(price_for_drink9['text']) * int(number_of_drink9.get())
+            if var10_for_drinks.get():
+                tp += int(price_for_drink10['text']) * int(number_of_drink10.get())
+            if var11_for_drinks.get():
+                tp += int(price_for_drink11['text']) * int(number_of_drink11.get())
+            if var12_for_drinks.get():
+                tp += int(price_for_drink12['text']) * int(number_of_drink12.get())
+            if var13_for_drinks.get():
+                tp += int(price_for_drink13['text']) * int(number_of_drink13.get())
+            if var14_for_drinks.get():
+                tp += int(price_for_drink14['text']) * int(number_of_drink14.get())
                 # test code
-                tkinter.messagebox.showinfo('Total price', tp)
-        Submit = Button(F3,text='Submit',font=('tomato',10,BOLD),bg='#0B4C5F',fg='white',width=15,height=2,command=order)
-        Submit.place(x=270,y=20)
+            return tp
 
+        # ----------function to get data from user------------
+        def order():
+            user_order = []
+            if var1_for_icecream.get():
+                user_order.append(
+                    number_of_icecream1.get() + ' ' + ice_cream1['text'] + '    ' + str(
+                        int(price_for_icecream1['text']) * int(number_of_icecream1.get())) + ' EGP')
 
+            if var2_for_icecream.get():
+                user_order.append(
+                    number_of_icecream2.get() + ' ' + ice_cream2['text'] + '    ' + str(
+                        int(price_for_icecream2['text']) * int(number_of_icecream2.get())) + ' EGP')
+
+            if var3_for_icecream.get():
+                user_order.append(
+                    number_of_icecream3.get() + ' ' + ice_cream3['text'] + '    ' + str(
+                        int(price_for_icecream3['text']) * int(number_of_icecream3.get())) + ' EGP')
+
+            if var4_for_icecream.get():
+                user_order.append(
+                    number_of_icecream4.get() + ' ' + ice_cream4['text'] + '    ' + str(
+                        int(price_for_icecream4['text']) * int(number_of_icecream4.get())) + ' EGP')
+
+            if var5_for_icecream.get():
+                user_order.append(
+                    number_of_icecream5.get() + ' ' + ice_cream5['text'] + '    ' + str(
+                        int(price_for_icecream5['text']) * int(number_of_icecream5.get())) + ' EGP')
+
+            if var6_for_icecream.get():
+                user_order.append(
+                    number_of_icecream6.get() + ' ' + ice_cream6['text'] + '    ' + str(
+                        int(price_for_icecream6['text']) * int(number_of_icecream6.get())) + ' EGP')
+
+            if var7_for_icecream.get():
+                user_order.append(
+                    number_of_icecream7.get() + ' ' + ice_cream7['text'] + '    ' + str(
+                        int(price_for_icecream7['text']) * int(number_of_icecream7.get())) + ' EGP')
+            if var8_for_icecream.get():
+                user_order.append(
+                    number_of_icecream8.get() + ' ' + ice_cream8['text'] + '    ' + str(
+                        int(price_for_icecream8['text']) * int(number_of_icecream8.get())) + ' EGP')
+
+            if var9_for_icecream.get():
+                user_order.append(
+                    number_of_icecream9.get() + ' ' + ice_cream9['text'] + '    ' + str(
+                        int(price_for_icecream9['text']) * int(number_of_icecream9.get())) + ' EGP')
+
+            if var10_for_icecream.get():
+                user_order.append(
+                    number_of_icecream10.get() + ' ' + ice_cream10['text'] + '    ' + str(
+                        int(price_for_icecream10['text']) * int(number_of_icecream10.get())) + ' EGP')
+
+            if var11_for_icecream.get():
+                user_order.append(
+                    number_of_icecream11.get() + ' ' + ice_cream11['text'] + '    ' + str(
+                        int(price_for_icecream11['text']) * int(number_of_icecream11.get())) + ' EGP')
+
+            if var12_for_icecream.get():
+                user_order.append(
+                    number_of_icecream12.get() + ' ' + ice_cream12['text'] + '    ' + str(
+                        int(price_for_icecream12['text']) * int(number_of_icecream12.get())) + ' EGP')
+
+            if var13_for_icecream.get():
+                user_order.append(
+                    number_of_icecream13.get() + ' ' + ice_cream13['text'] + '    ' + str(
+                        int(price_for_icecream13['text']) * int(number_of_icecream13.get())) + ' EGP')
+
+            if var14_for_icecream.get():
+                user_order.append(
+                    number_of_icecream14.get() + ' ' + ice_cream14['text'] + '    ' + str(
+                        int(price_for_icecream14['text']) * int(number_of_icecream14.get())) + ' EGP')
+
+            # ---------------Food----------------
+
+            if var1_for_food.get():
+                user_order.append(
+                    number_of_food1.get() + ' ' + food1['text'] + '    ' + str(
+                        int(price_for_food1['text']) * int(number_of_food1.get())) + ' EGP')
+
+            if var2_for_food.get():
+                user_order.append(
+                    number_of_food2.get() + ' ' + food2['text'] + '    ' + str(
+                        int(price_for_food2['text']) * int(number_of_food2.get())) + ' EGP')
+
+            if var3_for_food.get():
+                user_order.append(
+                    number_of_food3.get() + ' ' + food3['text'] + '    ' + str(
+                        int(price_for_food3['text']) * int(number_of_food3.get())) + ' EGP')
+
+            if var4_for_food.get():
+                user_order.append(
+                    number_of_food4.get() + ' ' + food4['text'] + '    ' + str(
+                        int(price_for_food4['text']) * int(number_of_food4.get())) + ' EGP')
+
+            if var5_for_food.get():
+                user_order.append(
+                    number_of_food5.get() + ' ' + food5['text'] + '    ' + str(
+                        int(price_for_food5['text']) * int(number_of_food5.get())) + ' EGP')
+
+            if var6_for_food.get():
+                user_order.append(
+                    number_of_food6.get() + ' ' + food6['text'] + '    ' + str(
+                        int(price_for_food6['text']) * int(number_of_food6.get())) + ' EGP')
+
+            if var7_for_food.get():
+                user_order.append(
+                    number_of_food7.get() + ' ' + food7['text'] + '    ' + str(
+                        int(price_for_food7['text']) * int(number_of_food7.get())) + ' EGP')
+
+            if var8_for_food.get():
+                user_order.append(
+                    number_of_food8.get() + ' ' + food8['text'] + '    ' + str(
+                        int(price_for_food8['text']) * int(number_of_food8.get())) + ' EGP')
+
+            if var9_for_food.get():
+                user_order.append(
+                    number_of_food9.get() + ' ' + food9['text'] + '    ' + str(
+                        int(price_for_food9['text']) * int(number_of_food9.get())) + ' EGP')
+
+            if var10_for_food.get():
+                user_order.append(
+                    number_of_food10.get() + ' ' + food10['text'] + '    ' + str(
+                        int(price_for_food10['text']) * int(number_of_food10.get())) + ' EGP')
+
+            if var11_for_food.get():
+                user_order.append(
+                    number_of_food11.get() + ' ' + food11['text'] + '    ' + str(
+                        int(price_for_food11['text']) * int(number_of_food11.get())) + ' EGP')
+
+            if var12_for_food.get():
+                user_order.append(
+                    number_of_food12.get() + ' ' + food12['text'] + '    ' + str(
+                        int(price_for_food12['text']) * int(number_of_food12.get())) + ' EGP')
+
+            if var13_for_food.get():
+                user_order.append(
+                    number_of_food13.get() + ' ' + food13['text'] + '    ' + str(
+                        int(price_for_food13['text']) * int(number_of_food13.get())) + ' EGP')
+
+            if var14_for_food.get():
+                user_order.append(
+                    number_of_food14.get() + ' ' + food14['text'] + '    ' + str(
+                        int(price_for_food14['text']) * int(number_of_food14.get())) + ' EGP')
+
+                # ------------Drinks-------------------
+
+            if var1_for_drinks.get():
+                user_order.append(
+                    number_of_drink1.get() + ' ' + drink1['text'] + '    ' + str(
+                        int(price_for_drink1['text']) * int(number_of_drink1.get())) + ' EGP')
+
+            if var2_for_drinks.get():
+                user_order.append(
+                    number_of_drink2.get() + ' ' + drink2['text'] + '    ' + str(
+                        int(price_for_drink2['text']) * int(number_of_drink2.get())) + ' EGP')
+
+            if var3_for_drinks.get():
+                user_order.append(
+                    number_of_drink3.get() + ' ' + drink3['text'] + '    ' + str(
+                        int(price_for_drink3['text']) * int(number_of_drink3.get())) + ' EGP')
+
+            if var4_for_drinks.get():
+                user_order.append(
+                    number_of_drink4.get() + ' ' + drink4['text'] + '    ' + str(
+                        int(price_for_drink4['text']) * int(number_of_drink4.get())) + ' EGP')
+
+            if var5_for_drinks.get():
+                user_order.append(
+                    number_of_drink5.get() + ' ' + drink5['text'] + '    ' + str(
+                        int(price_for_drink5['text']) * int(number_of_drink5.get())) + ' EGP')
+
+            if var6_for_drinks.get():
+                user_order.append(
+                    number_of_drink6.get() + ' ' + drink6['text'] + '    ' + str(
+                        int(price_for_drink6['text']) * int(number_of_drink6.get())) + ' EGP')
+
+            if var7_for_drinks.get():
+                user_order.append(
+                    number_of_drink7.get() + ' ' + drink7['text'] + '    ' + str(
+                        int(price_for_drink7['text']) * int(number_of_drink7.get())) + ' EGP')
+
+            if var8_for_drinks.get():
+                user_order.append(
+                    number_of_drink8.get() + ' ' + drink8['text'] + '    ' + str(
+                        int(price_for_drink8['text']) * int(number_of_drink8.get())) + ' EGP')
+
+            if var9_for_drinks.get():
+                user_order.append(
+                    number_of_drink9.get() + ' ' + drink9['text'] + '    ' + str(
+                        int(price_for_drink9['text']) * int(number_of_drink9.get())) + ' EGP')
+
+            if var10_for_drinks.get():
+                user_order.append(
+                    number_of_drink10.get() + ' ' + drink10['text'] + '    ' + str(
+                        int(price_for_drink10['text']) * int(number_of_drink10.get())) + ' EGP')
+
+            if var11_for_drinks.get():
+                user_order.append(
+                    number_of_drink11.get() + ' ' + drink11['text'] + '    ' + str(
+                        int(price_for_drink11['text']) * int(number_of_drink11.get())) + ' EGP')
+
+            if var12_for_drinks.get():
+                user_order.append(
+                    number_of_drink12.get() + ' ' + drink12['text'] + '    ' + str(
+                        int(price_for_drink12['text']) * int(number_of_drink12.get())) + ' EGP')
+
+            if var13_for_drinks.get():
+                user_order.append(
+                    number_of_drink13.get() + ' ' + drink13['text'] + '    ' + str(
+                        int(price_for_drink13['text']) * int(number_of_drink13.get())) + ' EGP')
+
+            if var14_for_drinks.get():
+                user_order.append(
+                    number_of_drink14.get() + ' ' + drink14['text'] + '    ' + str(
+                        int(price_for_drink14['text']) * int(number_of_drink14.get())) + ' EGP')
+
+            # test code
+            # for i in user_order:
+            #     backEnd_DB.addCustomer('1', 'karim', i, total_price())
+                # ------------------------------------------------------------------------
+            tree.insert('', END, values=('1', 'Karim', user_order[0], total_price()))
+            for i in range(1, len(user_order)):
+                tree.insert('', END, values=('', '', user_order[i], ''))
+
+            # tkinter.messagebox.showinfo('order', final_value)
+
+        submit = Button(F3, text='Submit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,
+                        command=order)
+        submit.place(x=270, y=20)
 
 
 root = Tk()
-ob = Restaurant(root)   
+ob = Restaurant(root)
 root.mainloop()

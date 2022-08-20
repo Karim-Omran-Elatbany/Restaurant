@@ -1,6 +1,10 @@
+import sqlite3
+import tkinter.messagebox
 from tkinter import *
 from tkinter.font import BOLD
 from tkinter.ttk import Treeview
+import backEnd_DB
+
 
 # center the main window according to screen
 class Restaurant:
@@ -12,54 +16,14 @@ class Restaurant:
         # self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
         title = Label(root, text='Restaurant Menu', fg='white', bg='#0B2F3A', font=('tomato', 15))
         title.pack(fill=X)
-        F1 = Frame(self.root, bd=2, width=547, height=100, bg='#0B4C5F')
-        F1.place(x=755, y=500)
-        t = Label(F1, text='Search For Customer', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
-        t.place(x=200, y=0)
 
-        # ----------------------Search-----------------
-        his_name = Label(F1, text='Username', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
-        his_name.place(x=10, y=30)
-
-        Ent_name = Entry(F1)
-        Ent_name.place(x=90, y=33)
-
-        his_id = Label(F1, text='ID', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
-        his_id.place(x=10, y=60)
-
-        Ent_id = Entry(F1)
-        Ent_id.place(x=90, y=63)
-
-        btn_Customer = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,height=2)
-        btn_Customer.place(x=430, y=30)
-
-        # ---------F1--------------
-        F1 = Label(F1, text='Restaurant Bot', font=('tomato', 13, BOLD), bg='#0B4C5F', fg='gold')
-        F1.place(x=110, y=135)
-        # ------------Output from User----------
-        F2 = Frame(root, bd=2, width=400, height=400, bg='white')
-        F2.place(x=760, y=30)
-        columns = ['id', 'name', 'order', 'total price']
-        tree = Treeview(F2, columns=columns, show='headings', height=22)
-        scroll = Scrollbar(F2, orient=VERTICAL, command=tree.yview)
-        tree.configure(yscroll=scroll.set)
-        scroll.grid(row=0, column=1, sticky='ns')
-        tree.column('id', width=50, anchor='center')
-        tree.column('name', width=88, anchor='center')
-        tree.column('order', width=300, anchor='center')
-        tree.column('total price', width=80, anchor='center')
-        tree.heading('id', text='id')
-        tree.heading('name', text='name')
-        tree.heading('order', text='order')
-        tree.heading('total price', text='total price')
-        tree.grid(column=0, row=0)
 
         # ------------BUttons------------------------------------------
         F3 = Frame(self.root, bd=2, width=753, height=100, bg='#0B4C5F')
         F3.place(x=1, y=500)
 
-
-        Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,command=root.destroy)
+        Exit = Button(F3, text='Exit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,
+                      command=root.destroy)
         Exit.place(x=450, y=20)
 
         # ------------------------IceCream--------------------------------
@@ -461,9 +425,6 @@ class Restaurant:
         drink13.deselect()
         drink14.deselect()
 
-        # backEnd_DB.CustomerData()
-        # backEnd_DB.access_path()
-
         # ----------function to get data from user------------
 
         def total_price():
@@ -772,22 +733,82 @@ class Restaurant:
                 user_order.append(
                     number_of_drink14.get() + ' ' + drink14['text'] + '    ' + str(
                         int(price_for_drink14['text']) * int(number_of_drink14.get())) + ' EGP')
-
-            # test code
-            # for i in user_order:
-            #     backEnd_DB.addCustomer('1', 'karim', i, total_price())
+            final_order = '\n'.join(user_order)
+            if Ent_name.get() != '' or Ent_id.get() != '':
+                backEnd_DB.addCustomer(Ent_name.get(), final_order, total_price())
                 # ------------------------------------------------------------------------
-            tree.insert('', END, values=('1', 'Karim', user_order[0], total_price()))
-            for i in range(1, len(user_order)):
-                tree.insert('', END, values=('', '', user_order[i], ''))
+                fetch_id = backEnd_DB.showAllCustomerID()
+                user_id = fetch_id.fetchall()
 
-            # tkinter.messagebox.showinfo('order', final_value)
+                tree.insert('', END, values=(user_id[-1], Ent_name.get(), user_order[0], total_price()))
+                for i in range(1, len(user_order)):
+                    tree.insert('', END, values=('', '', user_order[i], ''))
+
+            else:
+                tkinter.messagebox.showerror('System', 'Please Enter Username')
+
+        def search():
+            con1 = sqlite3.connect("customer.db")
+
+            cur1 = con1.cursor()
+
+            cur1.execute("SELECT * FROM customer WHERE custID=?" , Ent_id.get())
+
+            rows = cur1.fetchall()
+            for row in rows:
+                tree.insert("", END, values=row)
+
+            con1.close()
 
         submit = Button(F3, text='Submit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,
                         command=order)
         submit.place(x=150, y=20)
 
+        F1 = Frame(self.root, bd=2, width=547, height=100, bg='#0B4C5F')
+        F1.place(x=755, y=500)
+        t = Label(F1, text='Search For Customer', font=('tomato', 15, BOLD), bg='#0B4C5F', fg='gold')
+        t.place(x=200, y=0)
+        # ----------------------Search-----------------
+        his_name = Label(F1, text='Username', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
+        his_name.place(x=10, y=30)
 
+        Ent_name = Entry(F1)
+        Ent_name.place(x=90, y=33)
+
+        his_id = Label(F1, text='ID', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white')
+        his_id.place(x=10, y=60)
+
+        Ent_id = Entry(F1)
+        Ent_id.place(x=90, y=63)
+
+        search = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,
+                              height=2,command=search)
+        search.place(x=430, y=30)
+
+        # ---------F1--------------
+        F1 = Label(F1, text='Restaurant Bot', font=('tomato', 13, BOLD), bg='#0B4C5F', fg='gold')
+        F1.place(x=110, y=135)
+        # ------------Output from User----------
+        F2 = Frame(root, bd=2, width=400, height=400, bg='white')
+        F2.place(x=760, y=30)
+        columns = ['id', 'name', 'order', 'total price']
+        tree = Treeview(F2, columns=columns, show='headings', height=22)
+        scroll = Scrollbar(F2, orient=VERTICAL, command=tree.yview)
+        tree.configure(yscroll=scroll.set)
+        scroll.grid(row=0, column=1, sticky='ns')
+        tree.column('id', width=50, anchor='center')
+        tree.column('name', width=88, anchor='center')
+        tree.column('order', width=300, anchor='center')
+        tree.column('total price', width=80, anchor='center')
+        tree.heading('id', text='id')
+        tree.heading('name', text='name')
+        tree.heading('order', text='order')
+        tree.heading('total price', text='total price')
+        tree.grid(column=0, row=0)
+
+
+backEnd_DB.access_path()
+backEnd_DB.CustomerData()
 root = Tk()
 ob = Restaurant(root)
 root.mainloop()

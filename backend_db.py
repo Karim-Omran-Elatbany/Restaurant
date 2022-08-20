@@ -38,6 +38,13 @@ def showAllCustomer():
     con.commit()
     return data
 
+def showAllCustomerID():
+    con = sqlite3.connect('customer.db')
+    cursor = con.cursor()
+    data = cursor.execute('select custID from customer')
+    con.commit()
+    return data
+
 
 def deleteCustomers():
     con = sqlite3.connect('customer.db')

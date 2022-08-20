@@ -54,28 +54,29 @@ def deleteCustomers():
     con.close()
 
 
-def access_path():
-    con = sqlite3.connect('access.db')
+def logintable():
+    con = sqlite3.connect('login.db')
     cursor = con.cursor()
-    cursor.execute("""  create table IF NOT EXISTS access(
-            manager TEXT PRIMARY KEY NOT NULL
+    cursor.execute("""  create table IF NOT EXISTS login(
+            username TEXT PRIMARY KEY NOT NULL,
+            password TEXT NOT NULL
             ) """)
     con.commit()
     con.close()
 
 
-def addManager(managerName):
-    con = sqlite3.connect('access.db')
+def addUser(username, password):
+    con = sqlite3.connect('login.db')
     cursor = con.cursor()
-    cursor.execute('insert into access values(?)', (managerName))
+    cursor.execute('insert into login values(?,?)', (username, password))
     con.commit()
     con.close()
 
 
-def showAllManagers():
-    con = sqlite3.connect('access.db')
+def showAllUsers():
+    con = sqlite3.connect('login.db')
     cursor = con.cursor()
-    data = cursor.execute('select * from access')
+    data = cursor.execute('select * from login')
     con.commit()
-    return data
+    return
     

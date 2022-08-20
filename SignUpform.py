@@ -22,7 +22,7 @@ pady = 10
 
 # create window
 root = Tk()
-root.title('my app')
+root.title('Restaurant Bot')
 root.resizable(False, False)
 resize_and_center(root, width=window_width, height=window_height)
 

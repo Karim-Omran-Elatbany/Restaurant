@@ -201,7 +201,7 @@ class Restaurant:
 
         food4 = Checkbutton(FF2, text='Croissants', variable=var4_for_food)
         food4.place(x=10, y=120)
-        price_for_food4 = Label(FF2, text='20 ')
+        price_for_food4 = Label(FF2, text='320 ')
         price_for_food4.place(x=220, y=120)
         number_of_food4 = Spinbox(FF2, from_=1, to=100, width=10)
         number_of_food4.place(x=130, y=120)
@@ -222,7 +222,7 @@ class Restaurant:
 
         food7 = Checkbutton(FF2, text='Chicken Toasties', variable=var7_for_food)
         food7.place(x=10, y=210)
-        price_for_food7 = Label(FF2, text='20 ')
+        price_for_food7 = Label(FF2, text='220 ')
         price_for_food7.place(x=220, y=210)
         number_of_food7 = Spinbox(FF2, from_=1, to=100, width=10)
         number_of_food7.place(x=130, y=210)
@@ -236,7 +236,7 @@ class Restaurant:
 
         food9 = Checkbutton(FF2, text='Assorted Salads', variable=var9_for_food)
         food9.place(x=10, y=270)
-        price_for_food9 = Label(FF2, text='20 ')
+        price_for_food9 = Label(FF2, text=330 ')
         price_for_food9.place(x=220, y=270)
         number_of_food9 = Spinbox(FF2, from_=1, to=100, width=10)
         number_of_food9.place(x=130, y=270)

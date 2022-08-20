@@ -5,7 +5,7 @@ def CustomerData():
     con = sqlite3.connect('customer.db')
     cursor = con.cursor()
     cursor.execute("""  create table IF NOT EXISTS customer(
-            custID INT PRIMARY KEY NOT NULL,
+            custID INTEGER PRIMARY KEY,
             name TEXT,
             task TEXT,
             price INT 
@@ -22,11 +22,11 @@ def selectcustomer(custID):
     return data
 
 
-def addCustomer(custID, name, task, price):
+def addCustomer( name, task, price):
     con = sqlite3.connect('customer.db')
     cursor = con.cursor()
-    cursor.execute('insert into customer values (?,?,?,?)',
-                   (custID, name, task, price))
+    cursor.execute('insert into customer(name,task,price) values (?,?,?)',
+                   (name, task, price))
     con.commit()
     con.close()
 

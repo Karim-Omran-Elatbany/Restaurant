@@ -1,8 +1,8 @@
-import sqlite3
 import tkinter.messagebox
 from tkinter import *
 from tkinter.font import BOLD
 from tkinter.ttk import Treeview
+
 import backEnd_DB
 
 
@@ -16,7 +16,6 @@ class Restaurant:
         # self.root.iconbitmap('E:\\Restaurant-main\\Images\\restaurant.ico')
         title = Label(root, text='Restaurant Menu', fg='white', bg='#0B2F3A', font=('tomato', 15))
         title.pack(fill=X)
-
 
         # ------------BUttons------------------------------------------
         F3 = Frame(self.root, bd=2, width=753, height=100, bg='#0B4C5F')
@@ -748,7 +747,7 @@ class Restaurant:
                 tkinter.messagebox.showerror('System', 'Please Enter Username')
 
         def search():
-             rows = backEnd_DB.selectcustomer(Ent_id.get())
+            rows = backEnd_DB.selectcustomer(Ent_id.get())
             for row in rows:
                 tree.insert("", END, values=row)
 
@@ -774,7 +773,7 @@ class Restaurant:
         Ent_id.place(x=90, y=63)
 
         search = Button(F1, text='Search', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=10,
-                              height=2,command=search)
+                        height=2, command=search)
         search.place(x=430, y=30)
 
         # ---------F1--------------
@@ -798,9 +797,10 @@ class Restaurant:
         tree.heading('total price', text='total price')
         tree.grid(column=0, row=0)
 
-
         backEnd_DB.showAllCustomerID()
         backEnd_DB.CustomerData()
+
+
 root = Tk()
 ob = Restaurant(root)
 root.mainloop()

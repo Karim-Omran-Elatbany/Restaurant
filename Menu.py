@@ -748,17 +748,9 @@ class Restaurant:
                 tkinter.messagebox.showerror('System', 'Please Enter Username')
 
         def search():
-            con1 = sqlite3.connect("customer.db")
-
-            cur1 = con1.cursor()
-
-            cur1.execute("SELECT * FROM customer WHERE custID=?" , Ent_id.get())
-
-            rows = cur1.fetchall()
+             rows = backEnd_DB.selectcustomer(Ent_id.get())
             for row in rows:
                 tree.insert("", END, values=row)
-
-            con1.close()
 
         submit = Button(F3, text='Submit', font=('tomato', 10, BOLD), bg='#0B4C5F', fg='white', width=15, height=2,
                         command=order)

@@ -807,8 +807,8 @@ class Restaurant:
         tree.grid(column=0, row=0)
 
 
-backEnd_DB.access_path()
-backEnd_DB.CustomerData()
+        backEnd_DB.showAllCustomerID()
+        backEnd_DB.CustomerData()
 root = Tk()
 ob = Restaurant(root)
 root.mainloop()

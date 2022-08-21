@@ -110,7 +110,7 @@ class Restaurant:
 
         ice_cream10 = Checkbutton(FF1, text='Ocean Water', variable=var10_for_icecream)
         ice_cream10.place(x=10, y=300)
-        price_for_icecream10 = Label(FF1, text=29 ')
+        price_for_icecream10 = Label(FF1, text='29 ')
         price_for_icecream10.place(x=220, y=300)
         number_of_icecream10 = Spinbox(FF1, from_=1, to=100, width=10)
         number_of_icecream10.place(x=130, y=300)
@@ -236,7 +236,7 @@ class Restaurant:
 
         food9 = Checkbutton(FF2, text='Assorted Salads', variable=var9_for_food)
         food9.place(x=10, y=270)
-        price_for_food9 = Label(FF2, text=330 ')
+        price_for_food9 = Label(FF2, text='330 ')
         price_for_food9.place(x=220, y=270)
         number_of_food9 = Spinbox(FF2, from_=1, to=100, width=10)
         number_of_food9.place(x=130, y=270)

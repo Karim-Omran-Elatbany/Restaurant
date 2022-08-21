@@ -22,7 +22,7 @@ def selectcustomer(custID):
     return data
 
 
-def addCustomer( name, task, price):
+def addCustomer(name, task, price):
     con = sqlite3.connect('customer.db')
     cursor = con.cursor()
     cursor.execute('insert into customer(name,task,price) values (?,?,?)',
@@ -37,6 +37,7 @@ def showAllCustomer():
     data = cursor.execute('select * from customer')
     con.commit()
     return data
+
 
 def showAllCustomerID():
     con = sqlite3.connect('customer.db')
@@ -54,9 +55,34 @@ def deleteCustomers():
     con.close()
 
 
-def logintable():
-    con = sqlite3.connect('login.db')
+def access_path():
+    con = sqlite3.connect('access.db')
     cursor = con.cursor()
+    cursor.execute("""  create table IF NOT EXISTS access(
+            manager TEXT PRIMARY KEY NOT NULL
+            ) """)
+    con.commit()
+    con.close()
+
+
+def addManager(managerName):
+    con = sqlite3.connect('access.db')
+    cursor = con.cursor()
+    cursor.execute('insert into access values(?)', (managerName))
+    con.commit()
+    con.close()
+
+
+def showAllManagers():
+    con = sqlite3.connect('access.db')
+    cursor = con.cursor()
+    data = cursor.execute('select * from access')
+    con.commit()
+    return data
+
+def logintable():
+    con=sqlite3.connect('login.db')
+    cursor=con.cursor()
     cursor.execute("""  create table IF NOT EXISTS login(
             username TEXT PRIMARY KEY NOT NULL,
             password TEXT NOT NULL
@@ -64,19 +90,16 @@ def logintable():
     con.commit()
     con.close()
 
-
-def addUser(username, password):
-    con = sqlite3.connect('login.db')
-    cursor = con.cursor()
-    cursor.execute('insert into login values(?,?)', (username, password))
+def addUser(username,password):
+    con=sqlite3.connect('login.db')
+    cursor=con.cursor()
+    cursor.execute('insert into login values(?,?)',(username,password))
     con.commit()
     con.close()
 
-
 def showAllUsers():
-    con = sqlite3.connect('login.db')
-    cursor = con.cursor()
-    data = cursor.execute('select * from login')
+    con=sqlite3.connect('login.db')
+    cursor=con.cursor()
+    data=cursor.execute('select * from login')
     con.commit()
-    return
-    
+    return data
